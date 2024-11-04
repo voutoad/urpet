@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/static/css/feed.css" rel="stylesheet" type="text/css" />
+    <title>Document</title>
+  </head>
+  <body>
+    {% include 'includes/nav2.html' %}
+    <main id="{{ current_user.id }}">
+    {% if animals %}
+    {% for ans in animals %}
+    <section class="animal-cards">
+        {% for an in ans %}
+        <article class="animal-card">
+            <img src="/{{ an.img }}"/>
+            <h3>{{ an.name }}</h3>
+            <p>{{an.description}}</p>
+            {% if an.id not in cart %}
+            <button id="{{ an.id }}" onclick="addToCart(this)">Добавить в корзину</button>
+            {% else %}
+            <button id="{{ an.id }}">Уже в корзине</button>
+            {% endif %}
+        </article>  
+        {% endfor %}
+    </section>
+    {% endfor %}
+    {% endif %}
+    </main>
+    <footer class="footer">
+        <p>&copy; 2024 Передержка и поиск животных</p>
+    </footer>
+    <script>
+      function addToCart(button){
+        fetch("http://127.0.0.1:8000/add-to-cart/" + {{current_user.id}} + "/" + button.id + "/");
+        button.innerText = "Уже добавлено в корзину";
+      }
+    </script>
+</body>
+</html>

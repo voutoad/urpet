@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админская панель</title>
+    <link rel="stylesheet" href="/static/css/lost_animals_admin.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Админская панель</h1>
+        <div class="avatar" id="avatar" title="Личный кабинет">
+            <img src="avatar.png" alt="Аватар" />
+        </div>
+    </div>
+
+    {% include 'includes/a_nav.html' %}
+            <h2>Потерянные животные</h2>
+    
+        <main class="main">
+            <h2>Заявки на потерянных животных</h2>
+            <div class="lost-animals" id="lostAnimalRequests">
+                <!-- Здесь будут заявки на потерянных животных -->
+                {% for pet in pets %}
+                <div class="lost-animal" id="{{pet.id}}">
+                    <input type="checkbox" class="request-checkbox">
+                    <img src="/{{ pet.img }}" alt="Потерянный питомец" class="lost-pet-photo">
+                    <div class="animal-info">
+                        <h3>Заявка на: "{{ pet.name }}"</h3>
+                        <p class="description">Описание: {{ pet.description }}</p>
+                    </div>
+                    <button class="delete-button">Удалить</button>
+                </div>
+                {% endfor %}
+            </div>
+        </main>
+
+    <div class="footer">
+        <p>&copy; 2023 Админская панель</p>
+    </div>
+
+    <script src="/static/js/lost_animals.js"></script>
+</body>
+</html>

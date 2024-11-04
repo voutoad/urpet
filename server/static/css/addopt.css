@@ -1,0 +1,96 @@
+body{
+    background-color: #e6f2ff;
+    padding: 0;
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+.top-barfixed{
+    background-color: #81b266;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.top-barfixed a{
+    height: 35px;
+    width: 120px;
+    margin-left: 15px;
+    background-color: #81b266;
+    border-radius: 5px;
+    color: white;
+    border: 1px solid white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+}
+.top-barfixed a:hover{
+    background-color: #6c914c;
+}
+.animal-cards{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.animal-card {
+    background-color: white;
+    max-width: 250px;
+    max-height: 440px;
+    margin: 20px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: inline-block;
+    vertical-align: top;
+}
+
+.animal-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.animal-card h3 {
+    color: #333;
+    margin-top: 10px;
+}
+
+.animal-card p {
+    color: #555;
+    line-height: 1.6;
+}
+
+.animal-card button {
+    background-color: #b9daa0;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer; 
+    margin-left: 50px;
+}
+
+.animal-card button:hover{
+    background-color: #a3df76;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 5px; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-left: 50px;
+}
+
+.footer {
+    background-color: #81b266;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}

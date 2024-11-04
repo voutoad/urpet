@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/css/catch.css" rel="stylesheet" type="text/css"/>
+    <script src="/static/js/scripto.js" defer></script>
+    <title>Найденные</title>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=04fcaae6-825a-469a-86fe-eabc5755edd4&lang=ru_RU" type="text/javascript"></script>
+    
+</head>
+<body>
+    <header class="header">
+        <h1>Заявки на отлов</h1>
+    </header>
+
+    <nav class="navigation">
+        <ul>
+            <li><a href="/addopt">На главную</a></li>
+            <li><a href="/catch/lost">Потерянные</a></li>
+        </ul>
+    </nav>
+    <main>
+        {% for an in animals %}
+        <div class="popupback" id="popupback{{ an.id }}">
+            <div class="pop_up" id="pop{{ an.id }}">
+                <img class="img"src="/{{ an.img }}">
+                <div class="balls" id="ball{{ an.id }}">
+                    <p>{{ an.name }}. {{ an.description }}</p>
+                    <button class="close-button" id="close{{ an.id }}">Закрыть</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="main">
+            <section class="hero">
+                {% for an in animals %}
+                <div class="hddd">
+                    <div class="booba" id="div{{ an.id }}">
+                        <img class="image"src="/{{ an.img }}">
+                        <div class="uvava">
+                            <p>{{ an.name }}. {{ an.description }}</p>
+                        </div>
+                    </div>
+                    <button class="complete-button">Выполнено</button>
+                </div>
+                {% endfor %}
+            </section>
+            <div class="map-container">
+                <div id="map" style="width: 100%; height: 100%;"></div>
+            </div>
+        </div>
+    </main>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="blocklogin">
+                <h2>Регистрация</h2>
+                <form action="#">
+                    <label for="login">Логин:</label>
+                    <input type="text" id="login" name="login" required>
+                    
+                    <label for="password">Пароль:</label>
+                    <input type="password" id="password" name="password" required>
+                    
+                    <button type="submit">Зарегистрироваться</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <p>&copy; 2024 Заявки на отлов</p>
+    </footer>
+<script src="https://api-maps.yandex.ru/2.1/?apikey=04fcaae6-825a-469a-86fe-eabc5755edd4&lang=ru_RU" type="text/javascript"></script>
+</body>
+</html>

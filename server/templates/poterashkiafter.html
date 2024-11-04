@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/css/poterashkiafter.css" rel="stylesheet" type="text/css"/>
+    <script src="/static/js/poterashki.js" defer></script>
+    <title>Document</title>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=04fcaae6-825a-469a-86fe-eabc5755edd4&lang=ru_RU" type="text/javascript"></script>
+</head>
+<body>
+    {% include 'includes/nav2.html' %}
+    <main>
+    <div class="main">
+        <section class="hero">
+            <h2>Найдите нового друга или помогите найти дом для бездомных питомцев</h2>
+            <p>Ваш питомец потерялся?</p>
+            <p>Не беда, просто заполните анкету ниже, и наша администрация поможет найти его</p>
+            <input id="address_test" plaseholder="Введите адрес места, где последний раз видели своего пушистика">
+            <button id="address_on_map">Адрес на карту</button>
+            <form action="/create-form" method="post" enctype="multipart/form-data">
+              {{form.csrf_token}}
+              {{form.owner(value=current_user.id)}}
+              <input id="is_lost" name="is_lost" value="True" type="hidden">
+              {{form.name.label}}{{form.name(size=20)}}
+              {{form.description.label}}{{form.description(size=20)}}
+              {{form.img.label}}{{form.img}}
+              {{form.date.label}}{{form.date}}
+              {{form.at_time.label}}{{form.at_time}}
+
+              <input type="submit" value="Submit">
+            </form>
+        </section>
+        <div class="map-container">
+            <div id="map" style="width: 100%; height: 100%;"></div>
+        </div>
+    </div>
+    </div>
+    </main>
+    <footer class="footer">
+        <p>&copy; 2024 Передержка и поиск животных</p>
+    </footer>
+<script src="https://api-maps.yandex.ru/2.1/?apikey=04fcaae6-825a-469a-86fe-eabc5755edd4&lang=ru_RU" type="text/javascript"></script>
+</body>
+</html>

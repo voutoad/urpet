@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <link rel="stylesheet" href="/static/css/mainaccount.css" type="text/css" />
+    <link rel="stylesheet" href="/static/css/style.css" type="text/css" />
+    <script type="text/javascript" src="/static/js/mainaccount.js"></script>
+  </head>
+  <body>
+    {% include 'includes/nav2.html' %}
+    <main>
+    <section class="about_all">
+      <div class="infa">
+        <div class="imgofaccount">
+          <h2 class="tita">Ваша фотография</h2>
+          <form id="upload-container" method="POST" action="send.php">
+            <img id="upload-image" src="upload.svg" />
+            <div>
+              <input id="file-input" type="file" name="file" multiple />
+              <label for="file-input">Выберите файл</label>
+              <span><h6>или перетащите его</h6></span>
+            </div>
+          </form>
+        </div>
+        <section class="personality">
+          <h2 class="tit">Ваши личные данные</h2>
+          <div class="data">
+            <input type="name" placeholder="Имя" />
+            <input type="sername" placeholder="Фамилия" />
+            <input type="email" placeholder="e-mail" />
+            <input type="password" placeholder="пароль" />
+            <button class="save">Сохранить</button>
+          </div>
+        </section>
+      </div>
+      <section class="bigbox">
+        <section class="box">
+          <h3>Корзина</h3>
+        </section>
+        <div class="pet_cards">
+        {% for an in animals %}
+          <div class="byca">
+            <img
+              src="/{{an.img}}"
+            />
+            <h3>{{an.name}}</h3>
+            <button><a href="#">Взять</a></button>
+          </div>
+        {% endfor %}
+        </div>
+      </section>
+      <section class="chat">
+        <section class="chats">
+          <h3>Ваши сообщения</h3>
+        </section>
+        <div class="chatiki">
+          <a href="#" class="makers" target="_self"> <h4>Привет!</h4></a>
+        </div>
+      </section>
+    </section>
+    </main>
+    <footer class="footer">
+      <p>&copy; 2024 Передержка и поиск животных</p>
+    </footer>
+  </body>
+</html>

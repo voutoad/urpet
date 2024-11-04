@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Потерянные животные - Админская панель</title>
+    <link rel="stylesheet" href="/static/css/lost_animals_admin.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <script src="/static/js/lost_animals_admin.js"></script>
+</head>
+<body>
+    <div class="header">
+        <h1>Админская панель</h1>
+        <div class="avatar" id="avatar" title="Личный кабинет">
+            <img src="avatar.png" alt="Аватар" />
+        </div>
+    </div>
+
+    {% include 'includes/a_nav.html' %}
+
+    <main>
+        <h2>Потерянные животные</h2>
+        <div class="lost-animals" id="lostAnimalsContainer">
+        {% for animal in animals %}
+            <div class="lost-animal" id="{{ animal.id }}">
+                <img src="/{{ animal.img }}" alt="Потерянный питомец" class="lost-pet-photo">
+                <div class="animal-info">
+                    <h3>{{ animal.name }}</h3>
+                    <p>{{ animal.description }}</p>
+                </div>
+                <button class="delete-button" onclick="deleteAnimal(this)">Удалить</button>
+            </div>
+        {% endfor %}
+        </div>
+    </main>
+
+    <div class="footer">
+        <p>&copy; 2024 Админская панель</p>
+    </div>
+
+    <script>
+        function deleteAnimal(button) {
+            const animalDiv = button.parentElement;
+            fetch("http://127.0.0.1:8000/admin/delete-form/" + animalDiv.id + "/");
+            animalDiv.remove();
+            alert("Запись о животном удалена.");
+        }
+    </script>
+</body>
+</html>

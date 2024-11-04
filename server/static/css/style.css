@@ -1,0 +1,181 @@
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e6f2ff;
+    color: #333;
+}
+
+main {
+    position: relative;
+    min-height: 100vh;
+}
+
+
+.header {
+    background-color: #a1c982;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+ 
+.navigation {
+    background-color: #81b266;
+    padding: 10px 0;
+}
+ 
+.navigation ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+ 
+.navigation li {
+    display: inline;
+    margin-right: 10px;
+}
+ 
+.navigation a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 15px;
+    border: 1px solid white;
+    border-radius: 5px;
+}
+ 
+.navigation a:hover {
+    background-color: #6c914c;
+}
+ 
+.login-button {
+    float: right;
+    margin-right: 20px;
+    background-color: #6c914c;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-button:hover {
+    background-color: #547a43;
+}
+
+.hero {
+    background-color: #e6f2ff;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.animal-cards{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.animal-card {
+    background-color: white;
+    max-width: 300px;
+    margin: 20px auto;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: inline-block;
+    vertical-align: top;
+}
+
+.animal-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.animal-card h3 {
+    color: #333;
+    margin-top: 10px;
+}
+
+.animal-card p {
+    color: #555;
+    line-height: 1.6;
+}
+
+.animal-card button {
+    background-color: #b9daa0;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer; 
+    margin-left: 100px;
+}
+
+.animal-card button:hover{
+    background-color: #a3df76;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 5px; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-left: 100px;
+}
+
+.animal-card2 {
+    background-color: white;
+    max-width: 300px;
+    margin: 20px auto;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: inline-block;
+    vertical-align: top;
+}
+
+.animal-card2 img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.animal-card2 h3 {
+    color: #333;
+    margin-top: 10px;
+}
+
+.animal-card2 p {
+    color: #555;
+    line-height: 1.6;
+}
+
+.animal-card2 button {
+    background-color: #b9daa0;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer; 
+    margin-left: 100px;
+}
+
+.animal-card2 button:hover{
+    background-color: #a3df76;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 5px; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-left: 100px;
+}
+.footer {
+    background-color: #81b266;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    min-height: 2.5rem;
+}

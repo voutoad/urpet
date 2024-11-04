@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админская панель</title>
+    <link rel="stylesheet" href="style(1).css">
+    <script src="script(1).js"></script>
+
+</head>
+<body>
+    <div class="header">
+        <h1>Админская панель</h1>
+        <div class="avatar" id="avatar" title="Личный кабинет">
+            <img src="avatar.png" alt="Аватар" />
+        </div>
+    </div>
+
+    <div class="navigation">
+        <ul>
+            <li><a href="found_animals.html" id="foundAnimals">Найденные животные</a></li>
+            <li><a href="lost_animals_admin.html" id="lostAnimals">Потерянные животные</a></li>
+            <li><a href="volunteer_requests.html" id="volunteerRequests">Заявки на волонтёрство</a></li>
+            <li><a href="index(1).html" id="addAnimalButton">Добавить животное (+)</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <h2>Карточки животных</h2>
+        <div class="animal-cards" id="animalCards">
+            <!-- Здесь будут карточки животных -->
+        </div>
+    </div>
+
+    <div class="modal" id="addAnimalModal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Добавить животное</h2>
+            <form id="addAnimalForm">
+                <label for="animalName">Имя животного:</label>
+                <input type="text" id="animalName" required>
+                <label for="animalImage">Ссылка на изображение:</label>
+                <input type="url" id="animalImage" required>
+                <label for="animalAppearance">Внешность:</label>
+                <textarea id="animalAppearance" required></textarea>
+                <label for="animalCharacter">Характер:</label>
+                <textarea id="animalCharacter" required></textarea>
+                <button type="submit">Добавить</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2023 Админская панель</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

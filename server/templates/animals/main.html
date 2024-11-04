@@ -1,0 +1,8 @@
+<!DOCTYPE HTML>
+<title>Main page</title>
+<ul>
+{% for animal in animals %}
+    <li>{{animal.name}} {{animal.description}}</li>
+    <img src="{{animal.img}}">
+{% endfor %}
+</ul>

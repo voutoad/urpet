@@ -1,0 +1,150 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e6f2ff;
+    color: #333;
+}
+
+.header {
+    background-color: #a1c982;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    position: relative;
+}
+
+.avatar {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.navigation {
+    background-color: #81b266;
+    padding: 10px 0;
+}
+
+.navigation ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.navigation li {
+    display: inline;
+    margin-right: 10px;
+}
+
+.navigation a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 15px;
+    border: 1px solid white;
+    border-radius: 5px;
+}
+
+.navigation a:hover {
+    background-color: #6b8d4d;
+}
+
+.content {
+    padding: 20px;
+    text-align: center;
+
+}
+
+.animal-cards {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+.animal-card {
+    background-color: white;
+    max-width: 300px;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.animal-card h3 {
+    color: #333;
+    margin-top: 10px;
+}
+
+.animal-card p {
+    color: #555;
+    line-height: 1.6;
+}
+
+.footer {
+    background-color: #81b266;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.modal {
+    display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0, 0, 0, 0.5); justify-content: center; 
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #e0f7ec;
+    width: 90%; max-width: 400px; padding: 20px; border-radius: 15px; position: relative;
+}
+
+.close {
+    color: #aaa; 
+    position: absolute; top: 10px; right: 20px; font-size: 28px; font-weight: bold; 
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+}
+
+form {
+    margin-top: 20px;
+}
+
+label, input, textarea {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+input, textarea {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f3fef9;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
+    background-color: #6c914c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+button[type="submit"]:hover {
+    background-color: #547a43;
+}

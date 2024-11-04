@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Передержка и поиск животных</title>
+    <script src="/static/js/map.js" defer></script>
+    <link rel="stylesheet" href="/static/css/map.css" type="text/css"/>
+    <link rel="stylesheet" href="/static/css/style.css" type="text/css"/>
+</head>
+<body>
+<body>
+
+<header class="header">
+    <h1>Передержка и поиск животных</h1>
+</header>
+{% include 'nav.html' %}
+<main>
+<section class="hero">
+    <h2>Найдите нового друга или помогите найти дом для бездомных питомцев</h2>
+    <p>Мы стремимся обеспечить безопасность и заботу о каждом животном, пока оно не найдет свой дом.</p>
+</section>
+
+
+<div class="map-container">
+    <div id="map" style="width: 100%; height: 600px;"></div>
+</div>
+
+{% include 'reg.html' %}
+
+</main>
+
+<footer class="footer">
+    <p>&copy; 2024 Передержка и поиск животных</p>
+</footer>
+
+<script src="https://api-maps.yandex.ru/2.1/?apikey=04fcaae6-825a-469a-86fe-eabc5755edd4&lang=ru_RU" type="text/javascript"></script>
+<script src="static/js/reg.js"></script>
+</body>
+</html>
+

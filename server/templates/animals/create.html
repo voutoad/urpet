@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<title>Create pet form</title>
+<form method="post" enctype="multipart/form-data">
+    {{form.csrf_token}}
+    {{form.owner(value=current_user.id)}}
+    {{form.name.label}}{{form.name(size=20)}}
+    {{form.description.label}}{{form.description(size=20)}}
+    {{form.img.label}}{{form.img}}
+    {{form.date.label}}{{form.date}}
+    {{form.at_time.label}}{{form.at_time}}
+    <input type="submit" value="Submit">
+</form>

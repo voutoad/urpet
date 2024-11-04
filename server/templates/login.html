@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админская панель</title>
+    <link rel="stylesheet" href="/static/css/style.css" type="text/css">
+    <link rel="stylesheet" href="/static/css/reg.css" type="text/css">
+    {# <script src=""></script> #}
+
+</head>
+<body>
+    <div class="header">
+        <h1>Войти или зарегистрироваться</h1>
+    </div>
+    {% include 'includes/nav.html' %}
+    <main>
+    <ul>
+    {% for er in errors %}
+    <li>{{er}}</li>
+    {% endfor %}
+    </ul>
+    <div>
+    {%include 'includes/login.html'%}
+    {%include 'includes/reg.html'%}
+    </div>
+    </main>
+    <div class="footer">
+        <p>&copy; 2024 </p>
+    </div>
+</body>
+</html>
