@@ -248,4 +248,4 @@ if __name__ == '__main__':
         if not User.query.get(2):
             db.session.add(User('ADMIN', 'admin', '12345678', ''))
         db.session.commit()
-    app.run(host='127.0.0.1', port='8000', debug=True)
+    app.run(host='0.0.0.0', debug=True)
