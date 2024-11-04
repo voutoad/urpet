@@ -33,7 +33,6 @@ def load_user(user_id):
 def reg():
     data = request.args.to_dict()
     user = User(**data)
-    # user.is_super_user = True
     db.session.add(user)
     db.session.commit()
     return redirect('/')
@@ -115,6 +114,16 @@ def addopt():
     else:
         res.append(sp)
     return render_template('addopt.html', animals=res, cart=cart)
+
+
+@app.route('/overexposure')
+def overexposure():
+    return render_template('overexposure.html')
+
+
+@app.route('/urpet')
+def urpet():
+    return render_template('urpet.html')
 
 
 @app.route('/poterashki/')
