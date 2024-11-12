@@ -22,18 +22,20 @@
     <main>
         <h2>Заявки на волонтёрство</h2>
         <div class="volunteer-requests" id="volunteerRequestsContainer">
-            <div class="volunteer-request" data-email="ivan@example.com">
-                <img src="volunteer_photo_1.jpg" alt="Фото волонтёра" class="volunteer-photo">
+            {% for request in requests %}
+            <div class="volunteer-request" data-email="{{ request.email }}">
+                <img src="{{ request.img }}" alt="Фото волонтёра" class="volunteer-photo">
                 <div class="volunteer-info">
-                    <h3>Иван Иванов</h3>
-                    <p><strong>Личные качества:</strong> Ответственный, отзывчивый, активный</p>
-                    <p><strong>Дата рождения:</strong> 15.03.1990</p>
-                    <p><strong>Почта:</strong> ivan@example.com</p>
+                    <h3>{{ request.name }}</h3>
+                    <p><strong>Личные качества:</strong> {{ request.description }}</p>
+                    <p><strong>Дата рождения:</strong> {{ request.date_of_birth }}</p>
+                    <p><strong>Почта:</strong> {{ request.email }}</p>
                     <button class="approve-button">Одобрить</button>
                     <button class="reject-button">Отказать</button>
                 </div>
             </div>
-            <div class="volunteer-request" data-email="anna@example.com">
+            {% endfor %}
+            <!-- <div class="volunteer-request" data-email="anna@example.com">
                 <img src="volunteer_photo_2.jpg" alt="Фото волонтёра" class="volunteer-photo">
                 <div class="volunteer-info">
                     <h3>Анна Смирнова</h3>
@@ -43,7 +45,7 @@
                     <button class="approve-button">Одобрить</button>
                     <button class="reject-button">Отказать</button>
                 </div>
-            </div>
+            </div> -->
             <!-- Добавьте больше заявок по желанию -->
         </div>
     </main>

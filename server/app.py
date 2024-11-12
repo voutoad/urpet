@@ -24,6 +24,16 @@ login_manager.init_app(app)
 db.init_app(app)
 
 
+def check_admin():
+    if not current_user.is_super_user:
+        return redirect('/me')
+
+
+def check_catch():
+    if not current_user.is_catch:
+        return redirect('/me')
+
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.get(user_id)
@@ -49,6 +59,10 @@ def login():
     user = authenticate_user(**data)
     if user:
         login_user(user)
+        if user.is_super_user:
+            return redirect('/admin/foundanimals')
+        if user.is_catch:
+            return redirect('/catch/lost')
         next = request.args.get('next')
         return redirect(next or '/me')
     return render_template('login.html', errors=['Wrong password or username'])
@@ -117,11 +131,13 @@ def addopt():
 
 
 @app.route('/overexposure')
+@login_required
 def overexposure():
     return render_template('overexposure.html')
 
 
 @app.route('/urpet')
+@login_required
 def urpet():
     return render_template('urpet.html')
 
@@ -160,18 +176,18 @@ def new_animal():
             'at_time': form.at_time.data,
             'has_lost': True if form.is_lost.data == 'True' else False,
         }
-        print(form.is_lost.data)
         p.save(uri)
         f = Form(**data)
         db.session.add(f)
         db.session.commit()
-        return redirect('/')
+        return redirect(form.redirect.data)
     return render_template('animals/create.html', form=form)
 
 
 @app.route('/admin/add')
 @login_required
 def add():
+    check_admin()
     return render_template('index.html')
 
 
@@ -195,6 +211,7 @@ def delete(id):
 @app.route('/admin/lostanimals')
 @login_required
 def lost_animals():
+    check_admin()
     animals = list(
         filter(lambda x: not x.is_approved and x.has_lost, Form.query.all())
     )
@@ -204,6 +221,7 @@ def lost_animals():
 @app.route('/admin/foundanimals')
 @login_required
 def found_animals():
+    check_admin()
     animals = list(
         filter(
             lambda x: not x.is_approved and not x.has_lost, Form.query.all()
@@ -215,10 +233,12 @@ def found_animals():
 @app.route('/admin/volrequests')
 @login_required
 def vol_requests():
-    return render_template('volunteer_requests.html')
+    check_admin()
+    requests = VolunteerAnkete.query.all()
+    return render_template('volunteer_requests.html', requests=requests)
 
 
-@app.route('/catch/lost')
+@app.route('/catch/lost/', methods=['GET'])
 @login_required
 def catch_lost():
     animals = list(
@@ -229,7 +249,7 @@ def catch_lost():
     return render_template('catch2.html', animals=animals)
 
 
-@app.route('/catch/found')
+@app.route('/catch/found/')
 @login_required
 def catch_found():
     animals = list(
@@ -246,6 +266,8 @@ if __name__ == '__main__':
         if not User.query.get(1):
             db.session.add(User('', '', '', ''))
         if not User.query.get(2):
-            db.session.add(User('ADMIN', 'admin', '12345678', ''))
+            db.session.add(User('ADMIN', 'admin', '12345678', '', is_super_user=True))
+        if not User.query.get(3):
+            db.session.add(User('CATCH', 'catch', '12345678', '', is_catch=True))
         db.session.commit()
     app.run(host='0.0.0.0', debug=True)

@@ -19,13 +19,16 @@ class User(db.Model):
     is_active = db.Column(db.Boolean, default=True)
     is_anonymous = db.Column(db.Boolean, default=False)
     is_super_user = db.Column(db.Boolean, default=False)
+    is_catch = db.Column(db.Boolean, default=False)
     cart = db.Column(db.String(1000), default='')
 
-    def __init__(self, name, username, password, email):
+    def __init__(self, name, username, password, email, is_super_user=False, is_catch=False):
         self.name = name
         self.username = username
         self.email = email
         self.password = generate_password_hash(password)
+        self.is_super_user = is_super_user
+        self.is_catch = is_catch
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
@@ -70,6 +73,24 @@ class Form(db.Model):
         self.has_lost = has_lost
         self.date = date
         self.at_time = str(at_time)
+
+
+class VolunteerAnkete(db.Model):
+    __tablename__ = 'volunteer_ankete'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(20), index=True)
+    description = db.Column(db.String(150), index=True)
+    email = db.Column(db.String(254), index=True)
+    date_of_birth = db.Column(db.String(254), index=True)
+    img = db.Column(db.String(500))
+    
+    def __init__(self, name, description, email, date_of_birth, img):
+        self.name = name
+        self.description = description
+        self.email = email
+        self.date_of_birth = date_of_birth
+        self.img = img
 
 
 def authenticate_user(username='', password='') -> str | bool:

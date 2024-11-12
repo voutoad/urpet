@@ -23,10 +23,11 @@ class RegisterForm(FlaskForm):
 
 
 class CreateAnimalForm(FlaskForm):
-    name = StringField('name', validators=[DataRequired()])
-    description = StringField('description', validators=[DataRequired()])
+    name = StringField('Кличка', validators=[DataRequired()])
+    description = StringField('Опишите', validators=[DataRequired()])
     owner = HiddenField('owner')
     is_lost = BooleanField('is_lost')
-    img = FileField('image', validators=[FileRequired()])
-    date = DateField('date', validators=[DataRequired()])
-    at_time = TimeField('at_time', validators=[DataRequired()])
+    img = FileField('Изображение', validators=[FileRequired()])
+    date = DateField('Какого числа', validators=[DataRequired()])
+    redirect = HiddenField('redirect')
+    at_time = TimeField('Во время', validators=[DataRequired()])
