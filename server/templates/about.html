@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Передержка и поиск животных</title>
     <link rel="stylesheet" href="/static/css/about.css" type="text/css" />
-    <link rel="stylesheet" href="/static/css/map.css" type="text/css"/>
-    <link rel="stylesheet" href="/static/css/style.css" type="text/css"/>
-
+    <link rel="stylesheet" href="/static/css/map.css" type="text/css" />
+    <link rel="stylesheet" href="/static/css/style.css" type="text/css" />
   </head>
   <body>
     <header class="header">
@@ -59,18 +58,67 @@
         src="https://i.pinimg.com/236x/f1/e7/1e/f1e71e6be913f47ca85fc7ca36c08392.jpg"
         class="info-image"
       />
+
+      <button class="volunteer-button">Записаться в волонтеры</button>
     </section>
-
-    {% include 'includes/reg.html' %}
-    {% include 'includes/login.html' %}
-
-
+    {% include 'includes/reg.html' %} {% include 'includes/login.html' %}
+    <div class="modal" id="modal-volunteer">
+      <div class="modal-content">
+        <span class="close" id="close-volunteer">&times;</span>
+        <div class="blocklogin">
+          <h2>Оставить заявку на волонтерство</h2>
+          <form method="post" enctype="multipart/form-data">
+            {{form.csrf_token}}
+            <label for="name">Имя и Фамилия:</label>
+            <input type="text" id="name" name="name" required />
+            <label for="email">Почта:</label>
+            <input type="text" id="email" name="email" required />
+            <label for="description">Опишите себя</label>
+            <input type="text" id="description" name="description" required />
+            <label for="date_of_birth">Дата рождения:</label>
+            <input
+              type="date"
+              id="date_of_birth"
+              name="date_of_birth"
+              required
+            />
+            <label for="img">Приложите фото:</label>
+            <input type="file" id="img" name="img" required />
+            <button type="submit">Отправить</button>
+          </form>
+        </div>
+      </div>
+    </div>
     <footer class="footer">
       <p>&copy; 2024 Передержка и поиск животных</p>
     </footer>
 
     <script src="static/js/reg.js"></script>
     <script src="static/js/login.js"></script>
+    <script>
+      const volunteer_button = document.querySelector(".volunteer-button");
+      const modal_vol = document.querySelector("#modal-volunteer");
+      const vol_close = document.querySelector("#close-volunteer");
+      console.log(vol_close);
+      console.log(volunteer_button);
+      console.log(modal_vol);
 
+      volunteer_button.addEventListener("click", () => {
+        modal_vol.style.display = "flex";
+        document.body.style.overflow = "hidden";
+      });
+
+      vol_close.addEventListener("click", () => {
+        modal_vol.style.display = "none";
+        document.body.style.overflow = "auto";
+      });
+
+      window.addEventListener("click", (event) => {
+        if (event.target === modal_vol) {
+          modal_vol.style.display = "none";
+          document.body.style.overflow = "auto";
+        }
+      });
+    </script>
   </body>
 </html>

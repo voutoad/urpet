@@ -173,3 +173,14 @@ button[type="submit"] {
 button[type="submit"]:hover {
     background-color: #547a43;
 }
+
+.volunteer-button {
+    background-color: #6c914c;
+    border-radius: 5px;
+    color: white;
+    border-color: none;
+    display: flex;
+    margin: 1.5rem auto;
+    justify-content: center;
+    align-items: center;
+}

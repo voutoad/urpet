@@ -1,6 +1,6 @@
 from flask import Flask, redirect, request, render_template
-from models import db
-from forms import LoginForm, RegisterForm, CreateAnimalForm
+from models import VolunteerAnkete, db
+from forms import CreateAnimalForm, VolunteerAnketeForm
 from flask_login import (
     LoginManager,
     login_required,
@@ -11,7 +11,11 @@ from flask_login import (
 from models import User, Form, authenticate_user
 from werkzeug.utils import secure_filename
 import os
+import smtplib
+from email.mime.text import MIMEText
+from dotenv import load_dotenv
 
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -32,6 +36,24 @@ def check_admin():
 def check_catch():
     if not current_user.is_catch:
         return redirect('/me')
+
+
+@app.route('/send-email')
+def send_mail():
+    email = request.args.get('email')
+    server = smtplib.SMTP_SSL('smtp.yandex.ru:465')
+    server.login('urp3t', os.getenv('SMTP_PASSWORD'))
+    msg = MIMEText('Ваша заявка одобрена!', 'plain', 'utf-8')
+    msg['Subject'] = email
+    msg['From'] = 'urp3t@yandex.ru'
+    msg['To'] = email
+    server.send_message(msg)
+    server.quit()
+    v = VolunteerAnkete.query.filter_by(email=email).first()
+    v.is_approved = True
+    db.session.add(v)
+    db.session.commit()
+    return {'result': 'success'}
 
 
 @login_manager.user_loader
@@ -100,9 +122,28 @@ def map_an():
     return render_template('poterashki.html', form=form)
 
 
-@app.route('/about')
+@app.route('/about', methods=['GET', 'POST'])
 def about():
-    return render_template('about.html')
+    f = VolunteerAnketeForm()
+    if f.validate_on_submit():
+        p = f.img.data
+        filename = secure_filename(p.filename)
+        uri = os.path.join(
+            app.instance_path.strip('instance') + 'static', 'images', filename
+        )
+        data = {
+            'name': f.name.data,
+            'email': f.email.data,
+            'description': f.description.data,
+            'date_of_birth': f.date_of_birth.data,
+            'img': uri.split('server/')[-1],
+        }
+        v = VolunteerAnkete(**data)
+        p.save(uri)
+        db.session.add(v)
+        db.session.commit()
+        return redirect('/about')
+    return render_template('about.html', form=f)
 
 
 @app.route('/me')
@@ -234,7 +275,9 @@ def found_animals():
 @login_required
 def vol_requests():
     check_admin()
-    requests = VolunteerAnkete.query.all()
+    requests = list(
+        filter(lambda x: not x.is_approved, VolunteerAnkete.query.all())
+    )
     return render_template('volunteer_requests.html', requests=requests)
 
 
@@ -266,8 +309,12 @@ if __name__ == '__main__':
         if not User.query.get(1):
             db.session.add(User('', '', '', ''))
         if not User.query.get(2):
-            db.session.add(User('ADMIN', 'admin', '12345678', '', is_super_user=True))
+            db.session.add(
+                User('ADMIN', 'admin', '12345678', '', is_super_user=True)
+            )
         if not User.query.get(3):
-            db.session.add(User('CATCH', 'catch', '12345678', '', is_catch=True))
+            db.session.add(
+                User('CATCH', 'catch', '12345678', '', is_catch=True)
+            )
         db.session.commit()
     app.run(host='0.0.0.0', debug=True)

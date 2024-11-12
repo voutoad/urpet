@@ -31,3 +31,11 @@ class CreateAnimalForm(FlaskForm):
     date = DateField('Какого числа', validators=[DataRequired()])
     redirect = HiddenField('redirect')
     at_time = TimeField('Во время', validators=[DataRequired()])
+
+
+class VolunteerAnketeForm(FlaskForm):
+    name = StringField('Имя и Фамилия', validators=[DataRequired()])
+    email = StringField('Почта', validators=[DataRequired()])
+    description = StringField('Опишите себя', validators=[DataRequired()])
+    date_of_birth = DateField('Дата рождения', validators=[DataRequired()])
+    img = FileField('Изображение', validators=[FileRequired()])

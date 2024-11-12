@@ -1,41 +1,45 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Заявки на волонтёрство - Админская панель</title>
-    <link rel="stylesheet" href="/static/css/volunteer_requests.css">
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/volunteer_requests.css" />
+    <link rel="stylesheet" href="/static/css/style.css" />
 
     <script src="/static/js/volunteer_requests.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <div class="header">
-        <h1>Админская панель</h1>
-        <div class="avatar" id="avatar" title="Личный кабинет">
-            <img src="avatar.png" alt="Аватар" />
-        </div>
+      <h1>Админская панель</h1>
+      <div class="avatar" id="avatar" title="Личный кабинет">
+        <img src="avatar.png" alt="Аватар" />
+      </div>
     </div>
 
     {% include 'includes/a_nav.html' %}
 
     <main>
-        <h2>Заявки на волонтёрство</h2>
-        <div class="volunteer-requests" id="volunteerRequestsContainer">
-            {% for request in requests %}
-            <div class="volunteer-request" data-email="{{ request.email }}">
-                <img src="{{ request.img }}" alt="Фото волонтёра" class="volunteer-photo">
-                <div class="volunteer-info">
-                    <h3>{{ request.name }}</h3>
-                    <p><strong>Личные качества:</strong> {{ request.description }}</p>
-                    <p><strong>Дата рождения:</strong> {{ request.date_of_birth }}</p>
-                    <p><strong>Почта:</strong> {{ request.email }}</p>
-                    <button class="approve-button">Одобрить</button>
-                    <button class="reject-button">Отказать</button>
-                </div>
-            </div>
-            {% endfor %}
-            <!-- <div class="volunteer-request" data-email="anna@example.com">
+      <h2>Заявки на волонтёрство</h2>
+      <div class="volunteer-requests" id="volunteerRequestsContainer">
+        {% for request in requests %}
+        <div class="volunteer-request" data-email="{{ request.email }}">
+          <img
+            src="/{{ request.img }}"
+            alt="Фото волонтёра"
+            class="volunteer-photo"
+          />
+          <div class="volunteer-info">
+            <h3>{{ request.name }}</h3>
+            <p><strong>Личные качества:</strong> {{ request.description }}</p>
+            <p><strong>Дата рождения:</strong> {{ request.date_of_birth }}</p>
+            <p><strong>Почта:</strong> {{ request.email }}</p>
+            <button class="approve-button">Одобрить</button>
+            <button class="reject-button">Отказать</button>
+          </div>
+        </div>
+        {% endfor %}
+        <!-- <div class="volunteer-request" data-email="anna@example.com">
                 <img src="volunteer_photo_2.jpg" alt="Фото волонтёра" class="volunteer-photo">
                 <div class="volunteer-info">
                     <h3>Анна Смирнова</h3>
@@ -46,23 +50,26 @@
                     <button class="reject-button">Отказать</button>
                 </div>
             </div> -->
-            <!-- Добавьте больше заявок по желанию -->
-        </div>
+        <!-- Добавьте больше заявок по желанию -->
+      </div>
     </main>
 
     <div class="footer">
-        <p>&copy; 2023 Админская панель</p>
+      <p>&copy; 2023 Админская панель</p>
     </div>
 
     <div class="popup" id="popup">
-        <div class="popup-content">
-            <span class="close" id="closePopup">&times;</span>
-            <h2>Отправка письма</h2>
-            <p>Вы действительно хотите одобрить заявку и отправить письмо на почту <span id="emailToSend"></span>?</p>
-            <button id="sendEmailButton">Отправить</button>
-        </div>
+      <div class="popup-content">
+        <span class="close" id="closePopup">&times;</span>
+        <h2>Отправка письма</h2>
+        <p>
+          Вы действительно хотите одобрить заявку и отправить письмо на почту
+          <span id="emailToSend"></span>?
+        </p>
+        <button id="sendEmailButton">Отправить</button>
+      </div>
     </div>
 
     <script src="volunteer_requests.js"></script>
-</body>
+  </body>
 </html>

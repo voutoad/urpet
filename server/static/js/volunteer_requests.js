@@ -14,8 +14,9 @@ document.addEventListener('DOMContentLoaded', function() {
             popup.style.display = 'flex';
 
             sendEmailButton.onclick = function() {
-                alert(`РџРёСЃСЊРјРѕ РѕС‚РїСЂР°РІР»РµРЅРѕ РЅР° ${email}`);
-                request.remove(); // РЈРґР°Р»СЏРµРј Р·Р°СЏРІРєСѓ РїРѕСЃР»Рµ РѕРґРѕР±СЂРµРЅРёСЏ popup.style.display = 'none';
+                alert(`Письмо отправлено на ${email}`);
+                fetch(`/send-email?email=${email}`)
+                request.remove();
             };
         });
     });

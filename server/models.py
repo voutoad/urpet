@@ -22,7 +22,15 @@ class User(db.Model):
     is_catch = db.Column(db.Boolean, default=False)
     cart = db.Column(db.String(1000), default='')
 
-    def __init__(self, name, username, password, email, is_super_user=False, is_catch=False):
+    def __init__(
+        self,
+        name,
+        username,
+        password,
+        email,
+        is_super_user=False,
+        is_catch=False,
+    ):
         self.name = name
         self.username = username
         self.email = email
@@ -84,7 +92,8 @@ class VolunteerAnkete(db.Model):
     email = db.Column(db.String(254), index=True)
     date_of_birth = db.Column(db.String(254), index=True)
     img = db.Column(db.String(500))
-    
+    is_approved = db.Column(db.Boolean, default=False)
+
     def __init__(self, name, description, email, date_of_birth, img):
         self.name = name
         self.description = description
