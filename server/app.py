@@ -70,7 +70,7 @@ def reg():
     db.session.commit()
     au = authenticate_user(username=user.username, password=data.get('password'))
     if au:
-        login(au)
+        login_user(au)
         return redirect('/me')
     return redirect('/')
 
