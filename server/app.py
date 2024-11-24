@@ -1,6 +1,7 @@
+from functools import reduce
 from flask import Flask, redirect, request, render_template
 from models import VolunteerAnkete, db
-from forms import CreateAnimalForm, VolunteerAnketeForm
+from forms import CreateAnimalForm, LoginForm, VolunteerAnketeForm
 from flask_login import (
     LoginManager,
     login_required,
@@ -67,6 +68,10 @@ def reg():
     user = User(**data)
     db.session.add(user)
     db.session.commit()
+    au = authenticate_user(username=user.username, password=data.get('password'))
+    if au:
+        login(au)
+        return redirect('/me')
     return redirect('/')
 
 
@@ -198,7 +203,6 @@ def naydenushi():
 
 
 @app.route('/create-form/', methods=['get', 'post'])
-@login_required
 def new_animal():
     form = CreateAnimalForm()
     if form.validate_on_submit():
