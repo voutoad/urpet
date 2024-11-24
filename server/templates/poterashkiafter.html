@@ -21,7 +21,7 @@
                 <p>Не беда, просто заполните анкету ниже, и наша администрация поможет найти его</p>
                 <input id="address_test" plaseholder="Введите адрес места, где последний раз видели своего пушистика">
                 <button id="address_on_map">Адрес на карту</button>
-                <form action="/create-form" method="post" enctype="multipart/form-data">
+                <form action="/create-form/" method="post" enctype="multipart/form-data">
                     {{form.csrf_token}}
                     {{form.owner(value=current_user.id)}}
                     <input id="is_lost" name="is_lost" value="True" type="hidden">
