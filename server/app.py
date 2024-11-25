@@ -128,6 +128,16 @@ def add_animal(us_id, an_id):
     return {'result': 'success'}
 
 
+@app.route('/delete-from-cart/<int:us_id>/<int:an_id>/')
+def delete_animal(us_id, an_id):
+    user = User.query.get(us_id)
+    if str(an_id) in user.cart.split(', '):
+        user.cart = user.cart.split(', ').remove(str(an_id))
+        db.session.add(user)
+        db.session.commit()
+        return {'result': 'success'}
+    return {'result': 'fail'}
+
 @app.route('/', methods=['get'])
 def main():
     print(app.instance_path.strip('instance'))
@@ -168,7 +178,10 @@ def about():
 @app.route('/me')
 @login_required
 def me():
-    animals = [Form.query.get(_) for _ in current_user.cart.split(', ')][:-1]
+    try:
+        animals = [Form.query.get(_) for _ in current_user.cart.split(', ')][:-1]
+    except Exception:
+        animals = []
     return render_template('mainaccount.html', animals=animals)
 
 
@@ -176,7 +189,10 @@ def me():
 @login_required
 def addopt():
     animals = list(filter(lambda x: x.is_approved is True, Form.query.all()))
-    cart = list(map(int, current_user.cart.split(', ')[:-1]))
+    try:
+        cart = list(map(int, current_user.cart.split(', ')[:-1]))
+    except Exception:
+        cart = []
     res = []
     sp = []
     for k, v in enumerate(animals):
