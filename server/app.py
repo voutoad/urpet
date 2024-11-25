@@ -82,7 +82,9 @@ def log():
 
 @app.get('/auth/login/')
 def login():
-    data = request.args.to_dict()
+    data = request.args.to_dict().copy()
+    print(request.args.get('next'))
+    del data['next']
     user = authenticate_user(**data)
     if user:
         login_user(user)
@@ -90,9 +92,18 @@ def login():
             return redirect('/admin/foundanimals')
         if user.is_catch:
             return redirect('/catch/lost')
-        next = request.args.get('next')
+        next = f"/add-to-cart/{user.id}/{request.args.get('next')}/"
         return redirect(next or '/me')
     return render_template('login.html', errors=['Wrong password or username'])
+
+# @app.post('/auth/id')
+# def get_id_by_login_password():
+#     data = request.args.to_dict()
+#     user = authenticate_user(**data)
+#     if user:
+#         return user.id
+#     return {'result': 'fail'}
+
 
 
 @app.route('/auth/logout/')
@@ -111,6 +122,8 @@ def add_animal(us_id, an_id):
         user.cart += f'{an_id}, '
     db.session.add(user)
     db.session.commit()
+    if current_user:
+        return redirect('/me')
     return {'result': 'success'}
 
 

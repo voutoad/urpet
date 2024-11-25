@@ -26,11 +26,11 @@
 
             <section class="animal-cards">
                 {% if animals %} {% for animal in animals %}
-                <article class="animal-card">
+                <article class="animal-card" id="{{ animal.id }}">
                     <img src="{{ animal.img }}" alt="Мурзик" />
                     <h3>{{animal.name}}</h3>
                     <p>{{animal.description}}</p>
-                    <button>Взять</button>
+                    <button id="cart">Взять</button>
                 </article>
                 {% endfor %} {% endif %}
             </section>
@@ -44,5 +44,21 @@
 
         <script src="static/js/reg.js"></script>
         <script src="static/js/login.js"></script>
+        <script>
+            let flag = false;
+            const next = document.getElementById('next');
+            // const n_modal = document.getElementById('modal-l');
+            const cards = document.querySelectorAll(".animal-card");
+            console.log(cards);
+            for (let card of cards) {
+                const addToCartButton = card.querySelector("#cart");
+                addToCartButton.addEventListener("click", () => {
+                  id = card.id;
+                  next.value = id;
+                  n_modal.style.display = 'flex';
+                  document.body.style.overflow = 'hidden';
+                });
+            }
+        </script>
     </body>
 </html>
