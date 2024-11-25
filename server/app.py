@@ -263,7 +263,8 @@ def new_animal():
 @login_required
 def add():
     check_admin()
-    return render_template('index.html')
+    animals = Form.query.all()
+    return render_template('index.html', animals=animals)
 
 
 @app.route('/admin/change-form/<int:id>/')

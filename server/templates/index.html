@@ -1,53 +1,73 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Админская панель</title>
-    <link rel="stylesheet" href="/static/css/styles.css">
-    <link rel="stylesheet" href="/static/css/style.css">
-
-</head>
-<body>
-    <div class="header">
-        <h1>Админская панель</h1>
-        <div class="avatar" id="avatar" title="Личный кабинет">
-            <img src="avatar.png" alt="Аватар" />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Админская панель</title>
+        <link rel="stylesheet" href="/static/css/styles.css" />
+        <link rel="stylesheet" href="/static/css/style.css" />
+    </head>
+    <body>
+        <div class="header">
+            <h1>Админская панель</h1>
+            <div class="avatar" id="avatar" title="Личный кабинет">
+                <img src="avatar.png" alt="Аватар" />
+            </div>
         </div>
-    </div>
 
-    {% include 'includes/a_nav.html' %}
-    <main>
-    <div class="content">
-        <h2>Карточки животных</h2>
-        <div class="animal-cards" id="animalCards">
-            <!-- Здесь будут карточки животных -->
+        {% include 'includes/a_nav.html' %}
+        <main>
+            <div class="content">
+                <h2>Карточки животных</h2>
+                <div class="animal-cards" id="animalCards">
+                    {% if animals %}{% for animal in animals %}
+                    <article class="animal-card" id="{{ animal.id }}">
+                        <img src="/{{ animal.img }}" alt="Мурзик" />
+                        <h3>{{animal.name}}</h3>
+                        <p>{{animal.description}}</p>
+                        <button
+                            id="{{ animal.id }}"
+                            onclick="deleteForm(this)"
+                            style="background-color: #e74c3c"
+                        >
+                            Удалить
+                        </button>
+                    </article>
+                    {% endfor %} {% endif %}
+                </div>
+            </div>
+
+            <div class="modal" id="addAnimalModal">
+                <div class="modal-content">
+                    <span class="close" id="closeModal">&times;</span>
+                    <h2>Добавить животное</h2>
+                    <form id="addAnimalForm">
+                        <label for="animalName">Имя животного:</label>
+                        <input type="text" id="animalName" required />
+                        <label for="animalImage">Ссылка на изображение:</label>
+                        <input type="url" id="animalImage" required />
+                        <label for="animalAppearance">Внешность:</label>
+                        <textarea id="animalAppearance" required></textarea>
+                        <label for="animalCharacter">Характер:</label>
+                        <textarea id="animalCharacter" required></textarea>
+                        <button type="submit">Добавить</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <div class="footer">
+            <p>&copy; 2023 Админская панель</p>
         </div>
-    </div>
 
-    <div class="modal" id="addAnimalModal">
-        <div class="modal-content">
-            <span class="close" id="closeModal">&times;</span>
-            <h2>Добавить животное</h2>
-            <form id="addAnimalForm">
-                <label for="animalName">Имя животного:</label>
-                <input type="text" id="animalName" required>
-                <label for="animalImage">Ссылка на изображение:</label>
-                <input type="url" id="animalImage" required>
-                <label for="animalAppearance">Внешность:</label>
-                <textarea id="animalAppearance" required></textarea>
-                <label for="animalCharacter">Характер:</label>
-                <textarea id="animalCharacter" required></textarea>
-                <button type="submit">Добавить</button>
-            </form>
-        </div>
-    </div>
-    </main>
-
-    <div class="footer">
-        <p>&copy; 2023 Админская панель</p>
-    </div>
-
-    <script src="/static/js/script.js"></script>
-</body>
+        <script src="/static/js/script.js"></script>
+        <script>
+            function deleteForm(button) {
+                fetch(
+                    "http://194.87.140.79:8080/admin/delete-form/" + button.id,
+                );
+                button.parentNode.parentNode.removeChild(button.parentNode);
+            }
+        </script>
+    </body>
 </html>
