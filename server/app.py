@@ -92,7 +92,8 @@ def login():
             return redirect('/admin/foundanimals')
         if user.is_catch:
             return redirect('/catch/lost')
-        next = f"/add-to-cart/{user.id}/{request.args.get('next')}/"
+        next = request.args.get('next')
+        next = f"/add-to-cart/{user.id}/{next}/" if next else None
         return redirect(next or '/me')
     return render_template('login.html', errors=['Wrong password or username'])
 
