@@ -233,7 +233,7 @@ def new_animal():
             'img': uri.split('server/')[-1],
             'date': form.date.data,
             'at_time': form.at_time.data,
-            'has_lost': True if form.is_lost.data == 'True' else False,
+            'has_lost': True if form.is_lost.data is True else False,
         }
         p.save(uri)
         f = Form(**data)
@@ -281,11 +281,7 @@ def lost_animals():
 @login_required
 def found_animals():
     check_admin()
-    animals = list(
-        filter(
-            lambda x: not x.is_approved and not x.has_lost, Form.query.all()
-        )
-    )
+    animals = list(filter(lambda x: not x.is_approved and not x.has_lost, Form.query.all()))
     return render_template('found_animals.html', animals=animals)
 
 
