@@ -48,7 +48,7 @@ async function init() {
         animalNotifications.appendChild(notification);
         console.log(animal.coords)
         // Добавление маркера на карту
-        const placemark = new ymaps.Placemark(animal.coords, {
+        const placemark = new ymaps.Placemark([animal.coords[1], animal.coords[0]], {
             balloonContent: `
                 <div style="text-align: center;">
                     <strong>${animal.name}</strong><br>
