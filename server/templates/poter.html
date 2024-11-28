@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/static/css/poter.css" rel="stylesheet" type="text/css" />
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" defer></script>
+    <script src="/static/js/poter.js" defer></script>
+    <title>Потеряшки</title>
+  </head>
+  <body>
+    <header class="header">
+      <h1>Потеряшки</h1>
+    </header>
+    {% include 'includes/volnav.html' %}
+    <div class="main">
+      <div class="notification-list">
+        <h2>Список потеряшек</h2>
+        <div id="animal-notifications"></div>
+      </div>
+      <div id="map" class="map"></div>
+    </div>
+    <footer class="footer">
+      <p>&copy; 2024 Поиск и спасение животных</p>
+    </footer>
+  </body>
+</html>

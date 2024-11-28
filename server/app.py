@@ -1,20 +1,30 @@
-from functools import reduce
-from flask import Flask, redirect, request, render_template
-from models import VolunteerAnkete, db
-from forms import CreateAnimalForm, LoginForm, VolunteerAnketeForm
+import os
+import random
+import smtplib
+from email.mime.text import MIMEText
+from string import ascii_letters
+
+from dotenv import load_dotenv
+from flask import Flask, redirect, render_template, request
 from flask_login import (
     LoginManager,
+    current_user,
     login_required,
     login_user,
     logout_user,
-    current_user,
 )
-from models import User, Form, authenticate_user
+from flask_socketio import SocketIO
+from forms import CreateAnimalForm, VolunteerAnketeForm
+from models import (
+    Form,
+    Room,
+    User,
+    VolunteerAnkete,
+    authenticate_user,
+    db,
+)
 from werkzeug.utils import secure_filename
-import os
-import smtplib
-from email.mime.text import MIMEText
-from dotenv import load_dotenv
+import requests
 
 load_dotenv()
 
@@ -27,6 +37,8 @@ login_manager = LoginManager(app)
 login_manager.login_view = '/auth/log/'
 login_manager.init_app(app)
 db.init_app(app)
+socketio = SocketIO(app)
+STATIC_API_KEY = '8d088d67-b862-4454-93f6-ef870753f7be'
 
 
 def check_admin():
@@ -37,6 +49,23 @@ def check_admin():
 def check_catch():
     if not current_user.is_catch:
         return redirect('/me')
+
+
+def get_coords_by_address(address: str) -> str:
+    resp = requests.get(
+        f'https://geocode-maps.yandex.ru/1.x/?apikey={STATIC_API_KEY}&geocode={address}&format=json'
+    ).json()
+    return resp['response']['GeoObjectCollection']['featureMember'][0][
+        'GeoObject'
+    ]['Point']['pos']
+
+
+def generate_room_codes(length: int, existing_codes: list[str]) -> str:
+    while True:
+        code_chars = [random.choice(ascii_letters) for _ in range(length)]
+        code = ''.join(code_chars)
+        if code not in existing_codes:
+            return code
 
 
 @app.route('/send-email')
@@ -62,17 +91,37 @@ def load_user(user_id):
     return User.get(user_id)
 
 
-@app.get('/auth/register/')
+@app.route('/new-vol/', methods=['GET', 'POST'])
+def new_vol():
+    return {}
+
+
+@app.post('/auth/register/')
 def reg():
-    data = request.args.to_dict()
-    user = User(**data)
-    db.session.add(user)
+    data = request.form.to_dict()
+    u = User(**data)
+    db.session.add(u)
     db.session.commit()
-    au = authenticate_user(username=user.username, password=data.get('password'))
+    au = authenticate_user(username=u.username, password=data['password'])
     if au:
         login_user(au)
+        if u.is_vol:
+            db.session.add(
+                VolunteerAnkete(u.name, '', u.email, '', '', u.username)
+            )
+            db.session.commit()
+            return redirect('/vol/')
         return redirect('/me')
     return redirect('/')
+
+
+@app.route('/create-chat/<string:login>')
+def create_room(login: str):
+    codes = [_.code for _ in Room.query.all()]
+    room = generate_room_codes(15, codes)
+    db.session.add(Room(code=room, users=f'{login}, '))
+    db.session.commit()
+    return {'result': 'success'}
 
 
 @app.route('/auth/log/')
@@ -92,19 +141,12 @@ def login():
             return redirect('/admin/foundanimals')
         if user.is_catch:
             return redirect('/catch/lost')
+        if user.is_vol:
+            return redirect('/vol/')
         next = request.args.get('next')
-        next = f"/add-to-cart/{user.id}/{next}/" if next else None
+        next = f'/add-to-cart/{user.id}/{next}/' if next else None
         return redirect(next or '/me')
     return render_template('login.html', errors=['Wrong password or username'])
-
-# @app.post('/auth/id')
-# def get_id_by_login_password():
-#     data = request.args.to_dict()
-#     user = authenticate_user(**data)
-#     if user:
-#         return user.id
-#     return {'result': 'fail'}
-
 
 
 @app.route('/auth/logout/')
@@ -128,6 +170,38 @@ def add_animal(us_id, an_id):
     return {'result': 'success'}
 
 
+@app.route('/get-lost/', methods=['GET'])
+def get_lost():
+    return [
+        {
+            'id': i.id,
+            'name': i.name,
+            'address': i.address,
+            'time': f'В {i.at_time}, {i.date}',
+            'description': i.description,
+            'coords': list(map(float, i.coords.split())),
+            'photo': i.img,
+        }
+        for i in Form.query.filter(Form.has_lost)
+    ]
+
+
+@app.route('/poter/', methods=['GET'])
+def poter():
+    return [
+        {
+            'id': i.id,
+            'name': i.name,
+            'address': i.address,
+            'time': f'В {i.at_time}, {i.date}',
+            'description': i.description,
+            'coords': list(map(float, i.coords.split())),
+            'photo': i.img,
+        }
+        for i in Form.query.filter(not Form.has_lost)
+    ]
+
+
 @app.route('/delete-from-cart/<int:us_id>/<int:an_id>/')
 def delete_animal(us_id, an_id):
     user = User.query.get(us_id)
@@ -137,6 +211,7 @@ def delete_animal(us_id, an_id):
         db.session.commit()
         return {'result': 'success'}
     return {'result': 'fail'}
+
 
 @app.route('/', methods=['get'])
 def main():
@@ -179,7 +254,9 @@ def about():
 @login_required
 def me():
     try:
-        animals = [Form.query.get(_) for _ in current_user.cart.split(', ')][:-1]
+        animals = [Form.query.get(_) for _ in current_user.cart.split(', ')][
+            :-1
+        ]
     except Exception:
         animals = []
     return render_template('mainaccount.html', animals=animals)
@@ -250,6 +327,8 @@ def new_animal():
             'date': form.date.data,
             'at_time': form.at_time.data,
             'has_lost': True if form.is_lost.data is True else False,
+            'address': form.address.data,
+            'coords': get_coords_by_address(form.address.data),
         }
         p.save(uri)
         f = Form(**data)
@@ -298,7 +377,11 @@ def lost_animals():
 @login_required
 def found_animals():
     check_admin()
-    animals = list(filter(lambda x: not x.is_approved and not x.has_lost, Form.query.all()))
+    animals = list(
+        filter(
+            lambda x: not x.is_approved and not x.has_lost, Form.query.all()
+        )
+    )
     return render_template('found_animals.html', animals=animals)
 
 
@@ -334,6 +417,103 @@ def catch_found():
     return render_template('catch.html', animals=animals)
 
 
+@app.route('/vol/', methods=['GET'])
+@login_required
+def vol_main():
+    return render_template('vol.html')
+
+
+@app.route('/vol/found', methods=['GET'])
+@login_required
+def found():
+    return render_template('found.html')
+
+
+@app.route('/vol/pot', methods=['GET'])
+@login_required
+def pot():
+    return render_template('poter.html')
+
+
+@app.post('/change-ankete/')
+def ank_change():
+    data = request.form.to_dict()
+    files = request.files
+    ank = VolunteerAnkete.query.filter(
+        VolunteerAnkete.login == data['login']
+    ).first()
+    if files:
+        if 'photo' not in files:
+            return redirect('/vol/')
+        file = files['photo']
+        if file.filename == '':
+            return redirect('/vol/')
+        filename = secure_filename(file.filename)
+        uri = os.path.join(
+            app.instance_path.strip('instance') + 'static',
+            'images',
+            filename,
+        )
+        file.save(uri)
+        ank.img = uri
+
+    if 'name' in data.keys():
+        ank.name = data['name']
+    if 'email' in data.keys():
+        ank.email = data['email']
+    db.session.add(ank)
+    db.session.commit()
+    return redirect('/vol/')
+
+
+# @socketio.on('connect')
+# def handle_connect():
+#     room = session.get('room')
+#     if room not in [_.code for _ in Room.query.all()]:
+#         return
+#     join_room(room)
+#     send({
+#         "sender": "",
+#         "message": f"{name} начал(а) с вами чат!"
+#     }, to=room)
+#     r = Room.query.filter(Room.code == room).first()
+#     r.users += current_user.login
+#     db.session.add(r)
+#     db.session.commit()
+
+
+# @socketio.on('message')
+# def handle_message(payload):
+#     room = session.get('current_room')
+#     name = current_user.name
+#     if room not in [_.code for _ in Room.query.all()]:
+#         return
+#     message = {
+#         'sender': name,
+#         'message': payload
+#     }
+#     send(message, to=room)
+#     db.session.add(Message(message=payload, sender=current_user.id, room=Room.query.filter(Room.code==room).first()))
+#     db.session.commit()
+
+
+# @socketio.on('disconnect')
+# def handle_disconnecy():
+#     room = session.get('current_room')
+#     login = current_user.username
+
+#     leave_room(room)
+#     if room in [_.code for _ in Room.query.all()]:
+#         r = Room.query.filter(Room.code == room).first()
+#         r.users = r.users.strip(login)
+#         if r.users == ", ":
+#             db.session.delete(r)
+#         else:
+#             db.session.add(r)
+#         db.session.commit()
+#     send(f"{current_user.name} вышел(-шла) из чата", to=room)
+
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
@@ -349,3 +529,4 @@ if __name__ == '__main__':
             )
         db.session.commit()
     app.run(host='0.0.0.0', debug=True)
+    # socketio.run(app, host='0.0.0.0', port=5000)

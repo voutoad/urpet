@@ -20,6 +20,9 @@ class User(db.Model):
     is_anonymous = db.Column(db.Boolean, default=False)
     is_super_user = db.Column(db.Boolean, default=False)
     is_catch = db.Column(db.Boolean, default=False)
+    is_vol = db.Column(db.Boolean, default=False)
+    chat_active = db.Column(db.Boolean, default=False)
+    personal_chat = db.Column(db.Integer, default=0)
     cart = db.Column(db.String(1000), default='')
 
     def __init__(
@@ -30,6 +33,7 @@ class User(db.Model):
         email,
         is_super_user=False,
         is_catch=False,
+        is_vol=False,
     ):
         self.name = name
         self.username = username
@@ -37,6 +41,7 @@ class User(db.Model):
         self.password = generate_password_hash(password)
         self.is_super_user = is_super_user
         self.is_catch = is_catch
+        self.is_vol = is_vol == 'on'
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
@@ -52,6 +57,8 @@ class Form(db.Model):
     __tablename__ = 'form'
 
     id = db.Column(db.Integer, primary_key=True)
+    address = db.Column(db.String(100), index=True)
+    coords = db.Column(db.String(20), index=True, default='')
     name = db.Column(db.String(20), index=True)
     description = db.Column(db.String(300), index=True)
     img = db.Column(db.String(500))
@@ -59,7 +66,7 @@ class Form(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), default=1)
     user = db.relationship('User', backref=backref('forms', uselist=True))
     has_lost = db.Column(db.Boolean)
-    date = db.Column(db.DateTime, default=datetime.datetime.now())
+    date = db.Column(db.DateTime, default=datetime.datetime.now().date)
     at_time = db.Column(db.String(8), default='')
 
     def __init__(
@@ -72,6 +79,8 @@ class Form(db.Model):
         has_lost,
         date: datetime.datetime,
         at_time,
+        address,
+        coords,
     ):
         self.name = name
         self.description = description
@@ -81,6 +90,8 @@ class Form(db.Model):
         self.has_lost = has_lost
         self.date = date
         self.at_time = str(at_time)
+        self.address = address
+        self.coords = coords
 
 
 class VolunteerAnkete(db.Model):
@@ -93,13 +104,44 @@ class VolunteerAnkete(db.Model):
     date_of_birth = db.Column(db.String(254), index=True)
     img = db.Column(db.String(500))
     is_approved = db.Column(db.Boolean, default=False)
+    login = db.Column(db.String(20), index=True)
 
-    def __init__(self, name, description, email, date_of_birth, img):
+    def __init__(self, name, description, email, date_of_birth, img, login):
         self.name = name
         self.description = description
         self.email = email
         self.date_of_birth = date_of_birth
         self.img = img
+        self.login = login
+
+
+class Room(db.Model):
+    __tablename__ = 'room'
+
+    id = db.Column(db.Integer, primary_key=True)
+    code = db.Column(db.String(100), index=True)
+    users = db.Column(db.String(20), index=True)
+
+    def __init__(self, code, users) -> None:
+        self.code = code
+        self.users = users
+
+
+class Message(db.Model):
+    __tablename__ = 'message'
+
+    id = db.Column(db.Integer, primary_key=True)
+    message_text = db.Column(db.String(1000), index=True)
+    sender = db.Column(db.Integer, index=True)
+    sent_at = db.Column(db.DateTime, default=datetime.datetime.now())
+    room_id = db.Column(db.Integer, db.ForeignKey('room.id'))
+    room = db.relationship('Room', backref=backref('messages', uselist=True))
+
+    def __init__(self, message, sender, room, room_id) -> None:
+        self.message_text = message
+        self.sender = sender
+        self.room = room
+        self.room_id = room_id
 
 
 def authenticate_user(username='', password='') -> str | bool:

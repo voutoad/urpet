@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/static/css/vol.css" rel="stylesheet" type="text/css" />
+    {#
+    <script src="/static/js/vol.js" defer></script>
+    #}
+    <title>Личный кабинет</title>
+  </head>
+  <body>
+    <header class="header">
+      <h1>Личный кабинет</h1>
+    </header>
+    {% include 'includes/volnav.html' %}
+    <main>
+      <div class="main">
+        <form
+          id="user-info"
+          action="/change-ankete/"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <label for="username">Имя:</label>
+          <input type="text" id="username" placeholder="Ваше имя" name="name" />
+          <label for="email">Email:</label>
+          <input type="email" id="email" placeholder="Ваш email" name="email" />
+          <label for="photo">Фото:</label>
+          <input type="file" id="photo" name="photo" />
+          <input
+            type="hidden"
+            value="{{ current_user.username }}"
+            name="login"
+          />
+          <button type="submit">Сохранить изменения</button>
+        </form>
+        {#
+        <div class="found-animals">
+          <h2>Список найденных животных</h2>
+          <ul id="animal-list">
+            <li>Кот, найден в парке, 2 дня назад</li>
+            <li>Собака, найдена на улице, 1 день назад</li>
+          </ul>
+        </div>
+        #}
+      </div>
+    </main>
+    <footer class="footer">
+      <p>&copy; 2024 Поиск и спасение животных</p>
+    </footer>
+  </body>
+</html>

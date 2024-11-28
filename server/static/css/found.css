@@ -1,0 +1,103 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e6f2ff;
+    color: #333;
+    height: 100vh; /* Высота body на весь экран */
+}
+
+.header {
+    background-color: #a1c982;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.navigation {
+    background-color: #81b266;
+    padding: 10px 0;
+}
+
+.navigation ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.navigation li {
+    display: inline;
+    margin-right: 10px;
+}
+
+.navigation a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 15px;
+    border: 1px solid white;
+    border-radius: 5px;
+}
+
+.navigation a:hover {
+    background-color: #6c914c;
+}
+
+.main {
+    display: flex; /* Flexbox для горизонтального макета */
+    height: 100%; /* Высота на весь экран */
+}
+
+.notification-list {
+    width: 300px; /* Фиксированная ширина для списка уведомлений */
+    background-color: #f9f9f9; /* Цвет фона для визуального отделения */
+    padding: 20px; /* Отступы внутри блока уведомлений */
+    overflow-y: auto; /* Прокрутка для длинного списка уведомлений */
+}
+
+.notification {
+    background-color: #d0f0c0;
+    border-left: 5px solid #6c914c;
+    padding: 10px;
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.notification img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.map {
+    flex: 1; /* Занимает оставшееся пространство */
+    width: 100%; /* Полная ширина */
+    height: 100vw; /* Высота равна ширине для квадратной формы */
+    max-height: 100vh; /* Ограничиваем максимальную высоту экрана */
+    aspect-ratio: 1; /* Соотношение сторон 1:1 для квадратной формы */
+}
+
+.footer {
+    background-color: #81b266;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+@media (max-width: 768px) {
+    .main {
+        flex-direction: column; /* Изменяем направление на колонку для мобильных устройств */
+    }
+
+    .notification-list {
+        width: 100%; /* Полная ширина для мобильных устройств */
+        margin-bottom: 20px; /* Отступ снизу */
+    }
+
+    .map {
+        width: 100%; /* Полная ширина для мобильных устройств */
+        height: auto; /* Высота автоматически подстраивается */
+        aspect-ratio: 1; /* Соотношение сторон 1:1 для мобильных устройств */
+    }
+}

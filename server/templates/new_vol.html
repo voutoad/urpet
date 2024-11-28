@@ -1,0 +1,17 @@
+<h2>Оставить заявку на волонтерство</h2>
+<form method="post" enctype="multipart/form-data">
+    {{form.csrf_token}}
+    <label for="name">Имя и Фамилия:</label>
+    <input type="text" id="name" name="name" required />
+    <label for="login">Ваш логин:</label>
+    <input type="text" id="login" name="login" required />
+    <label for="email">Почта:</label>
+    <input type="text" id="email" name="email" required />
+    <label for="description">Опишите себя</label>
+    <input type="text" id="description" name="description" required />
+    <label for="date_of_birth">Дата рождения:</label>
+    <input type="date" id="date_of_birth" name="date_of_birth" required />
+    <label for="img">Приложите фото:</label>
+    <input type="file" id="img" name="img" required />
+    <button type="submit">Отправить</button>
+</form>

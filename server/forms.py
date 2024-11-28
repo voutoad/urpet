@@ -31,6 +31,7 @@ class CreateAnimalForm(FlaskForm):
     date = DateField('Какого числа', validators=[DataRequired()])
     redirect = HiddenField('redirect')
     at_time = TimeField('Во время', validators=[DataRequired()])
+    address = StringField('Где', validators=[DataRequired()])
 
 
 class VolunteerAnketeForm(FlaskForm):

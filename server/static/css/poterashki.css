@@ -1,5 +1,5 @@
 body {
-    font-family: "Arial", sans-serif;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #e6f2ff;
@@ -95,7 +95,7 @@ main {
 
 #map {
     width: 100%;
-    height: 100%;
+    height: 200px;
     border-radius: 10px;
     margin: 20px auto;
 }
@@ -221,10 +221,6 @@ button[type="submit"]:hover {
         width: 90%;
         padding: 30px;
     }
-    #map {
-        width: 100%;
-        height: 300px;
-    }
 
     .footer {
         padding: 10px 0;
@@ -238,12 +234,9 @@ button[type="submit"]:hover {
 
     .map-container {
         padding: 20px;
-        width: 85%;
+        width: 95%;
     }
-    #map {
-        width: 100%;
-        height: 300px;
-    }
+
     .modal-content {
         padding: 15px;
         width: 90%;

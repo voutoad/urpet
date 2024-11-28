@@ -1,0 +1,137 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e6f2ff;
+    color: #333;
+}
+
+main {
+    min-height: 100vh;
+}
+
+.header {
+    background-color: #a1c982;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.navigation {
+    background-color: #81b266;
+    padding: 10px 0;
+}
+
+.navigation ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.navigation li {
+    display: inline;
+    margin-right: 10px;
+}
+
+.navigation a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 15px;
+    border: 1px solid white;
+    border-radius: 5px;
+}
+
+.navigation a:hover {
+    background-color: #6c914c;
+}
+
+.main {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 20px;
+}
+
+label, input {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f3fef9;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
+    background-color: #6c914c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+button[type="submit"]:hover {
+    background-color: #547a43;
+}
+
+.found-animals {
+    width: 100%;
+    max-width: 400px;
+}
+
+.notification {
+    background-color: #d0f0c0;
+    border-left: 5px solid #6c914c;
+    padding: 10px;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+}
+
+.notification img {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.footer {
+    background-color: #81b266;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+@media (max-width: 768px) {
+    .navigation ul {
+        flex-direction: column;
+    }
+
+    .navigation li {
+        margin: 5px 0;
+    }
+
+    .main {
+        padding: 10px;
+    }
+
+    form {
+        width: 90%;
+    }
+
+    .found-animals {
+        width: 90%;
+    }
+}
