@@ -28,7 +28,7 @@ async function init() {
     //         coords: [55.7583, 37.6175]
     //     }
     // ];
-    let resp = await fetch('http://127.0.0.1:5000/get-lost/');
+    let resp = await fetch('http://194.87.140.79:8080/get-lost/');
     let foundAnimals = await resp.json();
     // console.log(json);
 
@@ -69,7 +69,7 @@ async function init() {
         notification.querySelector('.remove-button').addEventListener('click', () => {
             myMap.geoObjects.remove(placemark); // Удалить маркер
             notification.remove(); // Удалить уведомление
-            fetch('http://127.0.0.1:5000/admin/delete-form/' + animal.id + '/')
+            fetch('http://194.87.140.79:8080/admin/delete-form/' + animal.id + '/')
         });
     });
 }
