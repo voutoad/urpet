@@ -468,6 +468,20 @@ def ank_change():
     return redirect('/vol/')
 
 
+@app.post('/update-profile/')
+def update():
+    data = request.form.to_dict()
+    if not current_user.check_password(data['password']):
+        return redirect('/me')
+    if data['name']:
+        current_user.name = data['name']
+    if data['email']:
+        current_user.email = data['email']
+    db.session.add(current_user)
+    db.session.commit()
+    return redirect('/me')
+
+
 # @socketio.on('connect')
 # def handle_connect():
 #     room = session.get('room')

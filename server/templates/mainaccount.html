@@ -9,7 +9,7 @@
             href="/static/css/mainaccount.css"
             type="text/css"
         />
-        <link rel="stylesheet" href="/static/css/style.css" type="text/css" />
+        <!-- <link rel="stylesheet" href="/static/css/style.css" type="text/css" /> -->
         <script
             type="text/javascript"
             src="/static/js/mainaccount.js"
@@ -21,12 +21,12 @@
         <main>
             <section class="about_all">
                 <div class="infa">
-                    <div class="imgofaccount">
+                    <!-- <div class="imgofaccount">
                         <h2 class="tita">Ваша фотография</h2>
                         <form
                             id="upload-container"
                             method="POST"
-                            action="send.php"
+                            enctype="multipart/form-data"
                         >
                             <img id="upload-image" src="upload.svg" />
                             <div>
@@ -40,16 +40,18 @@
                                 <span><h6>или перетащите его</h6></span>
                             </div>
                         </form>
-                    </div>
+                    </div> -->
                     <section class="personality">
+                        <form action="/update-profile/" method="post">
                         <h2 class="tit">Ваши личные данные</h2>
                         <div class="data">
-                            <input type="name" placeholder="Имя" />
-                            <input type="sername" placeholder="Фамилия" />
-                            <input type="email" placeholder="e-mail" />
-                            <input type="password" placeholder="пароль" />
-                            <button class="save">Сохранить</button>
+                            <input type="name" placeholder="{{ current_user.name }}" name="name"/>
+                            <!-- <input type="sername" placeholder="Фамилия" /> -->
+                            <input type="email" placeholder="{{ current_user.email }}" name="email" />
+                            <input type="password" placeholder="пароль" name="password"/>
+                            <button class="save" type="submit">Сохранить</button>
                         </div>
+                        </form>
                     </section>
                 </div>
                 <section class="bigbox">

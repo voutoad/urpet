@@ -14,6 +14,9 @@ body {
     align-items: center;
     justify-content: space-between;
 }
+main {
+    min-height: 100vh;
+}
 .top-barfixed a {
     height: 35px;
     width: 120px;
