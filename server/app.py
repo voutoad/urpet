@@ -198,7 +198,7 @@ def poter():
             'coords': list(map(float, i.coords.split())),
             'photo': i.img,
         }
-        for i in Form.query.filter(not Form.has_lost)
+        for i in Form.query.filter(Form.has_lost == 0)
     ]
 
 
@@ -318,6 +318,8 @@ def new_animal():
         uri = os.path.join(
             app.instance_path.strip('instance') + 'static', 'images', filename
         )
+        print(form.is_lost.data)
+
         data = {
             'name': form.name.data,
             'description': form.description.data,
@@ -326,7 +328,7 @@ def new_animal():
             'img': uri.split('server/')[-1],
             'date': form.date.data,
             'at_time': form.at_time.data,
-            'has_lost': True if form.is_lost.data is True else False,
+            'has_lost': form.is_lost.data,
             'address': form.address.data,
             'coords': get_coords_by_address(form.address.data),
         }

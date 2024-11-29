@@ -1,14 +1,23 @@
 ymaps.ready(init);
 
-function init(){
+async function init(){
     var myMap = new ymaps.Map("map", {
         center: [55.7522, 37.6156],
         zoom: 10
     });
     ['zoomControl', 'searchControl', 'rulerControl',
         'typeSelector', 'fullscreenControl', 'trafficControl'].forEach(elem => myMap.controls.remove(elem));
-    
+    let resp = await fetch('http://194.87.140.79:8080/poter/');
+    let animals = await resp.json();
+    console.log(animals)
+    animals.forEach(animal => {
+        let placemark = new ymaps.Placemark([animal.coords[1], animal.coords[0]],
+            { balloonContent: '<strong>' + animal.name + '</strong>' },
+            { preset: 'islands#blueCircleDotIconWithCaption', iconCaptionMaxWidth: '50' });
+        myMap.geoObjects.add(placemark);
+    });
     document.getElementById("address_on_map").addEventListener("click", () => {
+        
         var address = document.getElementById("address_test").value;
         const Http = new XMLHttpRequest();
         const url='https://geocode-maps.yandex.ru/1.x/?apikey=04fcaae6-825a-469a-86fe-eabc5755edd4&geocode=' + address + '&format=json';

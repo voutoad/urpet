@@ -6,10 +6,6 @@
     <link href="static/css/naydenushi.css" rel="stylesheet" type="text/css" />
     <script src="static/js/naydenushi.js" defer></script>
     <title>Document</title>
-    <script
-      src="https://api-maps.yandex.ru/2.1/?apikey=04fcaae6-825a-469a-86fe-eabc5755edd4&lang=ru_RU"
-      type="text/javascript"
-    ></script>
   </head>
 
   <body>
@@ -35,7 +31,7 @@
             <input id="address_test" name="address" type="text" />
             <button id="address_on_map">Адрес на карту</button>
             {{form.csrf_token}} {{form.owner(value=current_user.id)}}
-            <input id="is_lost" name="is_lost" value="False" type="hidden" />
+            <input id="is_lost" name="is_lost" value="" type="hidden" />
             <input
               id="redirect"
               name="redirect"
