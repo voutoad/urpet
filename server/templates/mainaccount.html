@@ -1,27 +1,23 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title></title>
-        <link
-            rel="stylesheet"
-            href="/static/css/mainaccount.css"
-            type="text/css"
-        />
-        <!-- <link rel="stylesheet" href="/static/css/style.css" type="text/css" /> -->
-        <script
-            type="text/javascript"
-            src="/static/js/mainaccount.js"
-            defer
-        ></script>
-    </head>
-    <body>
-        {% include 'includes/nav2.html' %}
-        <main>
-            <section class="about_all">
-                <div class="infa">
-                    <!-- <div class="imgofaccount">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <link rel="stylesheet" href="/static/css/mainaccount.css" type="text/css" />
+    <!-- <link rel="stylesheet" href="/static/css/style.css" type="text/css" /> -->
+    <script
+      type="text/javascript"
+      src="/static/js/mainaccount.js"
+      defer
+    ></script>
+  </head>
+  <body>
+    {% include 'includes/nav2.html' %}
+    <main>
+      <section class="about_all">
+        <div class="infa">
+          <!-- <div class="imgofaccount">
                         <h2 class="tita">Ваша фотография</h2>
                         <form
                             id="upload-container"
@@ -41,62 +37,70 @@
                             </div>
                         </form>
                     </div> -->
-                    <section class="personality">
-                        <form action="/update-profile/" method="post">
-                        <h2 class="tit">Ваши личные данные</h2>
-                        <div class="data">
-                            <input type="name" placeholder="{{ current_user.name }}" name="name"/>
-                            <!-- <input type="sername" placeholder="Фамилия" /> -->
-                            <input type="email" placeholder="{{ current_user.email }}" name="email" />
-                            <input type="password" placeholder="пароль" name="password"/>
-                            <button class="save" type="submit">Сохранить</button>
-                        </div>
-                        </form>
-                    </section>
-                </div>
-                <section class="bigbox">
-                    <section class="box">
-                        <h3>Корзина</h3>
-                    </section>
-                    <div class="pet_cards">
-                        {% for an in animals %}
-                        <div class="byca">
-                            <img src="/{{an.img}}" />
-                            <h3>{{an.name}}</h3>
-                            <button class="byca-button">
-                                <a href="#">Взять</a>
-                            </button>
-                            <button
-                                class="delete-button"
-                                id="{{ an.id }}"
-                                onclick="deleteFromCart(this)"
-                            >
-                                <a href="#">Удалить</a>
-                            </button>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </section>
-                <section class="chat">
-                    <section class="chats">
-                        <h3>Ваши сообщения</h3>
-                    </section>
-                    <div class="chatiki">
-                        <a href="#" class="makers" target="_self">
-                            <h4>Привет!</h4></a
-                        >
-                    </div>
-                </section>
-            </section>
-        </main>
-        <footer class="footer">
-            <p>&copy; 2024 Передержка и поиск животных</p>
-        </footer>
-        <script>
-            function deleteFromCart(button) {
-              fetch("http://194.87.140.79:8080/delete-from-cart/" + {{ current_user.id }} + "/" + button.id);
-              button.parentNode.parentNode.removeChild(button.parentNode);
-            }
-        </script>
-    </body>
+          <section class="personality">
+            <form action="/update-profile/" method="post">
+              <h2 class="tit">Ваши личные данные</h2>
+              <div class="data">
+                <input
+                  type="name"
+                  placeholder="Имя"
+                  value="{{ current_user.name }}"
+                  name="name"
+                />
+                <!-- <input type="sername" placeholder="Фамилия" /> -->
+                <input
+                  type="email"
+                  placeholder="Почта"
+                  value="{{ current_user.email }}"
+                  name="email"
+                />
+                <input type="password" placeholder="пароль" name="password" />
+                <button class="save" type="submit">Сохранить</button>
+              </div>
+            </form>
+          </section>
+        </div>
+        <section class="bigbox">
+          <section class="box">
+            <h3>Корзина</h3>
+          </section>
+          <div class="pet_cards">
+            {% for an in animals %}
+            <div class="byca">
+              <img src="/{{an.img}}" />
+              <h3>{{an.name}}</h3>
+              <button class="byca-button">
+                <a href="#">Взять</a>
+              </button>
+              <button
+                class="delete-button"
+                id="{{ an.id }}"
+                onclick="deleteFromCart(this)"
+              >
+                <a href="#">Удалить</a>
+              </button>
+            </div>
+            {% endfor %}
+          </div>
+        </section>
+        <section class="chat">
+          <section class="chats">
+            <h3>Ваши сообщения</h3>
+          </section>
+          <div class="chatiki">
+            <a href="#" class="makers" target="_self"> <h4>Привет!</h4></a>
+          </div>
+        </section>
+      </section>
+    </main>
+    <footer class="footer">
+      <p>&copy; 2024 Передержка и поиск животных</p>
+    </footer>
+    <script>
+      function deleteFromCart(button) {
+        fetch("http://194.87.140.79:8080/delete-from-cart/" + {{ current_user.id }} + "/" + button.id);
+        button.parentNode.parentNode.removeChild(button.parentNode);
+      }
+    </script>
+  </body>
 </html>
