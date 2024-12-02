@@ -81,6 +81,7 @@ class Form(db.Model):
         at_time,
         address,
         coords,
+        is_approved,
     ):
         self.name = name
         self.description = description
@@ -92,6 +93,7 @@ class Form(db.Model):
         self.at_time = str(at_time)
         self.address = address
         self.coords = coords
+        self.is_approved = is_approved
 
 
 class VolunteerAnkete(db.Model):

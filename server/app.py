@@ -311,15 +311,18 @@ def naydenushi():
 
 @app.route('/create-form/', methods=['get', 'post'])
 def new_animal():
+    appr = False
+    if current_user and current_user.is_super_user:
+        appr = True
     form = CreateAnimalForm()
+    print(form)
     if form.validate_on_submit():
+        print('IIII')
         p = form.img.data
         filename = secure_filename(p.filename)
         uri = os.path.join(
             app.instance_path.strip('instance') + 'static', 'images', filename
         )
-        print(form.is_lost.data)
-
         data = {
             'name': form.name.data,
             'description': form.description.data,
@@ -331,6 +334,7 @@ def new_animal():
             'has_lost': form.is_lost.data,
             'address': form.address.data,
             'coords': get_coords_by_address(form.address.data),
+            'is_approved': appr,
         }
         p.save(uri)
         f = Form(**data)
@@ -344,8 +348,9 @@ def new_animal():
 @login_required
 def add():
     check_admin()
+    form = CreateAnimalForm()
     animals = Form.query.all()
-    return render_template('index.html', animals=animals)
+    return render_template('index.html', animals=animals, form=form)
 
 
 @app.route('/admin/change-form/<int:id>/')
