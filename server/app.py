@@ -214,7 +214,6 @@ def delete_animal(us_id, an_id):
 
 @app.route('/', methods=['get'])
 def main():
-    print(app.instance_path.strip('instance'))
     animals = list(filter(lambda x: x.is_approved is True, Form.query.all()))
     return render_template('main.html', animals=animals)
 

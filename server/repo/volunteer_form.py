@@ -1,7 +1,7 @@
 from datetime import date
 
-from repo import BaseRepo
-from server.models.database import db
+from server.repo.repo import BaseRepo
+from server.models import db
 from server.models.volunteer_form import VolunteerForm
 
 

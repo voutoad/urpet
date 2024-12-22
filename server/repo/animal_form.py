@@ -1,9 +1,10 @@
 import datetime
+from typing import Type
 
 from server.models.animal_form import Animal
 from server.models.user import User
-from server.models.database import db
-from repo import BaseRepo
+from server.models import db
+from server.repo.repo import BaseRepo
 
 
 class AnimalRepo(BaseRepo):
@@ -40,5 +41,7 @@ class AnimalRepo(BaseRepo):
     def get_by_id(self, animal_id: int) -> Animal | None:
         return self.session.query(Animal).filter_by(id=animal_id).first()
 
+    def get_py_approving(self, is_approved: bool) -> list[Type[Animal]]:
+        return self.session.query(Animal).filter_by(is_approved=is_approved).all()
 
 ANIMAL = AnimalRepo(db.session)

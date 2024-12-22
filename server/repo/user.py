@@ -1,8 +1,8 @@
 from werkzeug.security import generate_password_hash
 
 from server.models.user import User
-from server.models.database import db
-from repo import BaseRepo
+from server.models import db
+from server.repo.repo import BaseRepo
 
 
 class UserRepo(BaseRepo):
