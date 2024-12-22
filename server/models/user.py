@@ -27,3 +27,13 @@ class User(db.Model):
 
     def get_id(self):
         return str(self.id)
+
+
+def authenticate(username: str, password: str) -> User | bool:
+    user = User.query.filter_by(username=username).first()
+    if user and user.check_password(password):
+        user.is_authenticated = True
+        db.session.add(user)
+        db.session.commit()
+        return user
+    return False

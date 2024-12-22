@@ -26,6 +26,11 @@ class VolunteerFormRepo(BaseRepo):
         self.session.commit()
         return volunteer
 
+    def save(self, volunteer: VolunteerForm) -> VolunteerForm:
+        self.session.add(volunteer)
+        self.session.commit()
+        return volunteer
+
     def get_by_id(self, vol_id: int) -> VolunteerForm | None:
         return self.session.query(VolunteerForm).filter_by(id=vol_id).first()
 

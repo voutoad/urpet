@@ -15,7 +15,7 @@ class UserRepo(BaseRepo):
         is_super_user=False,
         is_catch=False,
         is_vol=False,
-    ) -> bool:
+    ) -> User:
         user = User()
         user.name = name
         user.username = username
@@ -26,7 +26,7 @@ class UserRepo(BaseRepo):
         user.password = generate_password_hash(password)
         self.session.add(user)
         self.session.commit()
-        return True
+        return user
 
     def get_by_id(self, user_id: int) -> User | None:
         return self.session.query(User).filter_by(id=user_id).first()
