@@ -42,5 +42,10 @@ class UserRepo(BaseRepo):
             return user
         return False
 
+    def save(self, user: User) -> User:
+        self.session.add(user)
+        self.session.commit()
+        return user
+
 
 USER = UserRepo(db.session)

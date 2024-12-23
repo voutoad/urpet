@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent
 
 SMTP_URL = os.getenv('SMTP_SSL') + os.getenv('SMTP_PORT')
 SMTP_PASSWORD = os.getenv('SMTP_PASSWORD')

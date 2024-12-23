@@ -44,4 +44,7 @@ class AnimalRepo(BaseRepo):
     def get_py_approving(self, is_approved: bool) -> list[Type[Animal]]:
         return self.session.query(Animal).filter_by(is_approved=is_approved).all()
 
+    def get_by_lost(self, has_lost: bool) -> list[Type[Animal]]:
+        return self.session.query(Animal).filter_by(has_lost=has_lost).all()
+
 ANIMAL = AnimalRepo(db.session)

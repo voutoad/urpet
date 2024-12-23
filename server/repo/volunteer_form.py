@@ -34,5 +34,8 @@ class VolunteerFormRepo(BaseRepo):
     def get_by_id(self, vol_id: int) -> VolunteerForm | None:
         return self.session.query(VolunteerForm).filter_by(id=vol_id).first()
 
+    def get_by_login(self, login: str) -> VolunteerForm | None:
+        return self.session.query(VolunteerForm).filter_by(login=login).first()
+
 
 VOLUNTEER = VolunteerFormRepo(db.session)
