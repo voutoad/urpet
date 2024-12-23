@@ -47,4 +47,30 @@ class AnimalRepo(BaseRepo):
     def get_by_lost(self, has_lost: bool) -> list[Type[Animal]]:
         return self.session.query(Animal).filter_by(has_lost=has_lost).all()
 
+    def get_all(self):
+        return self.session.query(Animal).all()
+
+    def save(self, form: Animal) -> Animal:
+        self.session.add(form)
+        self.session.commit()
+        return form
+
+    def delete(self, form: Animal) -> int:
+        n = form.id
+        self.session.delete(form)
+        self.session.commit()
+        return n
+
+    def not_approved_has_lost(self):
+        return self.session.query(Animal).filter_by(has_lost=True, is_approved=False).all()
+
+
+    def approved_has_lost(self):
+        return self.session.query(Animal).filter_by(has_lost=True, is_approved=True).all()
+
+    def approved_found(self):
+        return self.session.query(Animal).filter_by(has_lost=False, is_approved=True).all()
+
+    def not_approved_found(self):
+        return self.session.query(Animal).filter_by(has_lost=False, is_approved=False).all()
 ANIMAL = AnimalRepo(db.session)

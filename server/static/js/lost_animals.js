@@ -9,7 +9,7 @@ for (let request of requests) {
   const deleteButton = request.querySelector(".delete-button");
   deleteButton.addEventListener("click", function () {
     id = request.id;
-    fetch("http://194.87.140.79:8080/admin/delete-form/" + id + "/");
+    fetch("/admin/delete-form/" + id + "/");
     lostAnimalRequests.removeChild(request);
   });
 
@@ -18,7 +18,7 @@ for (let request of requests) {
   checkbox.addEventListener("change", function () {
     if (checkbox.checked) {
       id = request.id;
-      fetch("http://194.87.140.79:8080/admin/change-form/" + id + "/");
+      fetch("/admin/change-form/" + id + "/");
       lostAnimalRequests.removeChild(request);
     }
   });

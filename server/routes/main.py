@@ -15,7 +15,7 @@ def root():
 
 
 # route => /map
-def map():
+def map_animals():
     form = CreateAnimalForm()
     return render_template('poterashki.html', form=form)
 

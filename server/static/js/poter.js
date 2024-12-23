@@ -28,7 +28,7 @@ async function init() {
     //         coords: [55.7583, 37.6175]
     //     }
     // ];
-    let resp = await fetch('http://194.87.140.79:8080/poter/');
+    let resp = await fetch('/poter/');
     animals = await resp.json()
     const animalNotifications = document.getElementById('animal-notifications');
 

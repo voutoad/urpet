@@ -9,7 +9,7 @@ from server.repo.volunteer_form import VOLUNTEER
 
 
 def login():
-    data = request.get_json()
+    data = request.form.to_dict()
     nexts = data['next']
     del data['next']
     user = authenticate(**data)
@@ -29,7 +29,12 @@ def login():
 
 def register():
     data = request.form.to_dict()
-    data['is_vol'] = data['is_vol'] == 'on'
+    if 'is_vol' in data.keys():
+        data['is_vol'] = True
+    else:
+        data['is_vol'] = False
+
+    # data['is_vol'] = data['is_vol'] == 'on'
     u = USER.create(**data)
     user = authenticate(username=u.username, password=data['password'])
     if user:

@@ -50,7 +50,7 @@ def urpet():
 @login_required
 def poterashki():
     form = CreateAnimalForm()
-    return render_template('poterashki.html', form=form)
+    return render_template('poterashkiafter.html', form=form)
 
 
 @login_required

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/static/css/volunteer_requests.css" />
     <link rel="stylesheet" href="/static/css/style.css" />
 
-    <script src="/static/js/volunteer_requests.js"></script>
+    <script src="/static/js/volunteer_requests.js" defer></script>
   </head>
   <body>
     <div class="header">
@@ -23,7 +23,7 @@
       <h2>Заявки на волонтёрство</h2>
       <div class="volunteer-requests" id="volunteerRequestsContainer">
         {% for request in requests %}
-        <div class="volunteer-request" data-email="{{ request.email }}">
+        <div class="volunteer-request" data-email="{{ request.email }}" id="{{ request.id }}">
           <img
             src="/{{ request.img }}"
             alt="Фото волонтёра"
@@ -70,6 +70,6 @@
       </div>
     </div>
 
-    <script src="volunteer_requests.js"></script>
+{#    <script src="volunteer_requests.js"></script>#}
   </body>
 </html>

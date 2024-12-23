@@ -6,20 +6,22 @@ from flask_login import current_user
 from werkzeug.utils import secure_filename
 
 from server.forms import CreateAnimalForm
+from server.models import Animal, User
 from server.repo import ANIMAL, USER
-from server.config import YMAPS_API_KEY, BASE_DIR
+from server.config import GEOCODE, BASE_DIR
 
 
 def get_coords_by_address(address: str) -> str:
     resp = requests.get(
-        f'https://geocode-maps.yandex.ru/1.x/?apikey={YMAPS_API_KEY}&geocode={address}&format=json'
+        f'https://geocode-maps.yandex.ru/1.x/?apikey={GEOCODE}&geocode={address}&format=json'
     ).json()
+    print(resp)
     return resp['response']['GeoObjectCollection']['featureMember'][0]['GeoObject']['Point']['pos']
 
 
 def new_animal():
     appr = False
-    if current_user and current_user.is_super_user:
+    if current_user and isinstance(current_user, User) and current_user.is_authenticated:
         appr = True
     form = CreateAnimalForm()
     if form.validate_on_submit():
@@ -31,9 +33,9 @@ def new_animal():
             'description': form.description.data,
             'user_id': form.owner.data,
             'user': USER.get_by_id(form.owner.data),
-            'img': uri.split('server/')[-1],
+            'img': str(uri).split('server/')[-1],
             'date': form.date.data,
-            'at_time': form.at_time.data,
+            'at_time': str(form.at_time.data),
             'has_lost': form.is_lost.data,
             'address': form.address.data,
             'coords': get_coords_by_address(form.address.data),

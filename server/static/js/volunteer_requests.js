@@ -24,6 +24,8 @@ document.addEventListener('DOMContentLoaded', function() {
     rejectButtons.forEach(button => {
         button.addEventListener('click', function() {
             const request = this.closest('.volunteer-request');
+            const id = request.getAttribute('id');
+            fetch(`/delte-vol/${parseInt(id)}`)
             request.remove(); // РЈРґР°Р»СЏРµРј Р·Р°СЏРІРєСѓ РїРѕСЃР»Рµ РѕС‚РєР°Р·Р°
         });
     });

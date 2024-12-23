@@ -23,9 +23,9 @@
           enctype="multipart/form-data"
         >
           <label for="username">Имя:</label>
-          <input type="text" id="username" placeholder="Ваше имя" name="name" />
+          <input type="text" id="username" placeholder="Ваше имя" name="name" value="{{ current_user.name }}"/>
           <label for="email">Email:</label>
-          <input type="email" id="email" placeholder="Ваш email" name="email" />
+          <input type="email" id="email" placeholder="Ваш email" name="email" value="{{ current_user.email }}"/>
           <label for="photo">Фото:</label>
           <input type="file" id="photo" name="photo" />
           <input

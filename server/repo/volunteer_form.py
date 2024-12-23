@@ -37,5 +37,15 @@ class VolunteerFormRepo(BaseRepo):
     def get_by_login(self, login: str) -> VolunteerForm | None:
         return self.session.query(VolunteerForm).filter_by(login=login).first()
 
+    def not_approved(self):
+        return self.session.query(VolunteerForm).filter_by(is_approved=False).all()
 
+    def get_by_email(self, email: str) -> VolunteerForm | None:
+        return self.session.query(VolunteerForm).filter_by(email=email).first()
+
+    def delete(self, vol: VolunteerForm) -> int:
+        n = vol.id
+        self.session.delete(vol)
+        self.session.commit()
+        return n
 VOLUNTEER = VolunteerFormRepo(db.session)

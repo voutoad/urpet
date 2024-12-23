@@ -34,8 +34,8 @@ def ank_change():
             return redirect('/vol/')
         filename = secure_filename(file.filename)
         uri = BASE_DIR / 'static' / 'images' / filename
-        file.save(uri)
-        ank.img = uri
+        file.save(str(uri))
+        ank.img = str(uri)
 
     if 'name' in data.keys():
         ank.name = data['name']
