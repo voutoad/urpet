@@ -2,6 +2,7 @@ import config
 from routes.urls import app
 from app import db
 from models import User
+from werkzeug.security import generate_password_hash
 
 if __name__ == '__main__':
     with app.app_context():
@@ -17,7 +18,7 @@ if __name__ == '__main__':
             u = User()
             u.name = 'ADMIN'
             u.email = ''
-            u.password = '12345678'
+            u.password = generate_password_hash('12345678')
             u.username = 'admin'
             u.is_super_user = True
             db.session.add(u)
@@ -25,10 +26,11 @@ if __name__ == '__main__':
             u = User()
             u.name = 'CATCH'
             u.email = ''
-            u.password = '12345678'
+            u.password = generate_password_hash('12345678')
             u.username = 'catch'
             u.is_catch = True
             db.session.add(u)
         db.session.commit()
+        print(User.query.get(2).username)
     print(config.BASE_DIR)
     app.run()
