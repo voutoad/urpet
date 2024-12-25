@@ -1,7 +1,7 @@
-import server.config
-from server.routes.urls import app
-from server.app import db
-from server.models import User
+import config
+from routes.urls import app
+from app import db
+from models import User
 
 if __name__ == '__main__':
     with app.app_context():
@@ -30,5 +30,5 @@ if __name__ == '__main__':
             u.is_catch = True
             db.session.add(u)
         db.session.commit()
-    print(server.config.BASE_DIR)
+    print(config.BASE_DIR)
     app.run()

@@ -1,8 +1,8 @@
 from flask import Flask
 from flask_login import LoginManager
 
-from server.models import db
-from server.repo.user import USER
+from models import db
+from repo.user import USER
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sqlite.db'
