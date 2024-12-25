@@ -52,6 +52,7 @@
             {{form.csrf_token}} {{form.owner(value=1)}}
             <input id="is_lost" name="is_lost" value="True" type="hidden" />
             <input id="redirect" name="redirect" value="/" type="hidden" />
+            <input id="overexposure" name="overexposure" value="" type="hidden" />
             {{form.name.label}}{{form.name(size=20)}}
             {{form.description.label}}{{form.description(size=20)}}
             {{form.img.label}}{{form.img}} {{form.date.label}}{{form.date}}

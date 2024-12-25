@@ -21,4 +21,5 @@ class Animal(db.Model):
     date: Mapped[datetime.date] = mapped_column(
         default=datetime.datetime.now().date
     )
+    overexposure: Mapped[bool] = mapped_column(default=False)
     at_time: Mapped[str]

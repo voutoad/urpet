@@ -32,6 +32,7 @@
             <button id="address_on_map">Адрес на карту</button>
             {{form.csrf_token}} {{form.owner(value=current_user.id)}}
             <input id="is_lost" name="is_lost" value="" type="hidden" />
+            <input id="overexposure" name="overexposure" value="" type="hidden" />
             <input
               id="redirect"
               name="redirect"

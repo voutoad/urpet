@@ -13,7 +13,7 @@ app.add_url_rule('/map', view_func=map_animals, methods=['GET', 'POST'])
 app.add_url_rule('/about', view_func=about, methods=['GET'])
 app.add_url_rule('/create-form/', view_func=new_animal, methods=['POST'])
 app.add_url_rule('/get-lost/', view_func=get_lost, methods=['GET'])
-app.add_url_rule('/poter/', view_func=found, methods=['GET'])
+app.add_url_rule('/poter/', view_func=found_animal, methods=['GET'])
 
 # AUTH
 app.add_url_rule('/auth/login/', view_func=login, methods=['POST'])

@@ -7,15 +7,28 @@ if __name__ == '__main__':
     with app.app_context():
         db.create_all()
         if not User.query.get(1):
-            db.session.add(User('', '', '', ''))
+            u = User()
+            u.name = ''
+            u.email = ''
+            u.password = ''
+            u.username = ''
+            db.session.add(u)
         if not User.query.get(2):
-            db.session.add(
-                User('ADMIN', 'admin', '12345678', '', is_super_user=True)
-            )
+            u = User()
+            u.name = 'ADMIN'
+            u.email = ''
+            u.password = '12345678'
+            u.username = 'admin'
+            u.is_super_user = True
+            db.session.add(u)
         if not User.query.get(3):
-            db.session.add(
-                User('CATCH', 'catch', '12345678', '', is_catch=True)
-            )
+            u = User()
+            u.name = 'CATCH'
+            u.email = ''
+            u.password = '12345678'
+            u.username = 'catch'
+            u.is_catch = True
+            db.session.add(u)
         db.session.commit()
     print(server.config.BASE_DIR)
     app.run()

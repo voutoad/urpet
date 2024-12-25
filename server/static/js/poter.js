@@ -29,7 +29,7 @@ async function init() {
     //     }
     // ];
     let resp = await fetch('/poter/');
-    animals = await resp.json()
+    let animals = await resp.json()
     const animalNotifications = document.getElementById('animal-notifications');
 
     animals.forEach(animal => {

@@ -7,7 +7,7 @@ async function init(){
     });
     ['zoomControl', 'searchControl', 'rulerControl',
         'typeSelector', 'fullscreenControl', 'trafficControl'].forEach(elem => myMap.controls.remove(elem));
-    let resp = await fetch('http://194.87.140.79:8080/poter/');
+    let resp = await fetch('/poter/');
     let animals = await resp.json();
     console.log(animals)
     animals.forEach(animal => {

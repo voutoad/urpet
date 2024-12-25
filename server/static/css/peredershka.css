@@ -1,0 +1,204 @@
+body {
+    background-color: #e6f2ff;
+    padding: 0;
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+main {
+    position: relative;
+    min-height: 100vh;
+}
+
+.create {
+    margin-left: 40%;
+    background-color: #b9daa0;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+}
+
+.create:hover {
+    background-color: #a3df76;
+}
+
+.top-barfixed {
+    background-color: #81b266;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.top-barfixed a {
+    height: 35px;
+    width: 120px;
+    margin-left: 15px;
+    background-color: #81b266;
+    border-radius: 5px;
+    color: white;
+    border: 1px solid white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.top-barfixed a:hover {
+    background-color: #6c914c;
+}
+
+.animal-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.animal-card {
+    background-color: white;
+    max-width: 250px;
+    margin: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.animal-card img {
+    max-width: 100%;
+    height: auto;
+}
+
+.animal-card h3 {
+    color: #333;
+}
+
+.animal-card p {
+    color: #555;
+}
+
+.animal-card button {
+    background-color: #b9daa0;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+}
+
+.animal-card button:hover {
+    background-color: #a3df76;
+}
+
+.footer {
+    background-color: #81b266;
+    color: white;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    position: relative;
+    min-height: 2.5rem;
+}
+
+
+@media screen and (max-width: 768px) {
+
+    .top-barfixed {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        padding-bottom: 10px;
+    }
+
+    .top-barfixed a {
+        width: calc(50% - 10px);
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-bottom: 10px;
+    }
+
+    .animal-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .animal-card {
+        max-width: 90%;
+        margin-bottom: 20px;
+    }
+
+    .footer {
+        font-size: smaller;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #e0f7ec;
+    width: 90%;
+    max-width: 400px;
+    padding: 20px;
+    border-radius: 15px;
+    position: relative;
+}
+
+.close {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+}
+input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f3fef9;
+    box-sizing: border-box;
+}
+button[type="submit"] {
+    background-color: #6c914c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+button[type="submit"]:hover {
+    background-color: #547a43;
+}
+form {
+    margin-top: 20px;
+}
+
+label,
+input {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}

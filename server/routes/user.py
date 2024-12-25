@@ -39,7 +39,9 @@ def addopt():
 
 @login_required
 def overexposure():
-    return render_template('overexposure.html')
+    animals = ANIMAL.get_overexposure()
+    form = CreateAnimalForm()
+    return render_template('overexposure.html', animals=animals, form=form)
 
 
 @login_required

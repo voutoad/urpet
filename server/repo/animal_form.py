@@ -7,20 +7,22 @@ from server.models import db
 from server.repo.repo import BaseRepo
 
 
+
 class AnimalRepo(BaseRepo):
     def create(
-        self,
-        name: str,
-        description: str,
-        user_id: int,
-        user: User,
-        img: str,
-        has_lost: bool,
-        date: datetime.date,
-        at_time: str,
-        address: str,
-        coords: str,
-        is_approved: bool,
+            self,
+            name: str,
+            description: str,
+            user_id: int,
+            user: User,
+            img: str,
+            has_lost: bool,
+            date: datetime.date,
+            at_time: str,
+            address: str,
+            coords: str,
+            is_approved: bool,
+            overexposure: bool,
     ) -> Animal:
         animal = Animal()
         animal.name = name
@@ -34,6 +36,7 @@ class AnimalRepo(BaseRepo):
         animal.address = address
         animal.coords = coords
         animal.is_approved = is_approved
+        animal.overexposure = overexposure
         self.session.add(animal)
         self.session.commit()
         return animal
@@ -45,7 +48,7 @@ class AnimalRepo(BaseRepo):
         return self.session.query(Animal).filter_by(is_approved=is_approved).all()
 
     def get_by_lost(self, has_lost: bool) -> list[Type[Animal]]:
-        return self.session.query(Animal).filter_by(has_lost=has_lost).all()
+        return self.session.query(Animal).filter_by(has_lost=has_lost, overexposure=False).all()
 
     def get_all(self):
         return self.session.query(Animal).all()
@@ -62,15 +65,19 @@ class AnimalRepo(BaseRepo):
         return n
 
     def not_approved_has_lost(self):
-        return self.session.query(Animal).filter_by(has_lost=True, is_approved=False).all()
-
+        return self.session.query(Animal).filter_by(has_lost=True, is_approved=False, overexposure=False).all()
 
     def approved_has_lost(self):
-        return self.session.query(Animal).filter_by(has_lost=True, is_approved=True).all()
+        return self.session.query(Animal).filter_by(has_lost=True, is_approved=True, overexposure=False).all()
 
     def approved_found(self):
-        return self.session.query(Animal).filter_by(has_lost=False, is_approved=True).all()
+        return self.session.query(Animal).filter_by(has_lost=False, is_approved=True, overexposure=False).all()
 
     def not_approved_found(self):
-        return self.session.query(Animal).filter_by(has_lost=False, is_approved=False).all()
+        return self.session.query(Animal).filter_by(has_lost=False, is_approved=False, overexposure=False).all()
+
+    def get_overexposure(self):
+        return self.session.query(Animal).filter_by(overexposure=True, is_approved=True).all()
+
+
 ANIMAL = AnimalRepo(db.session)

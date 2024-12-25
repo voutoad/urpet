@@ -1,23 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="/static/css/UrPet.css" rel="stylesheet" type="text/css" />
-  <script src="/static/js/naydenushi.js" defer></script>
-  <title>Document</title>
-  <script src="https://api-maps.yandex.ru/2.1/?apikey=04fcaae6-825a-469a-86fe-eabc5755edd4&lang=ru_RU"
-    type="text/javascript"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/css/peredershka.css" rel="stylesheet" type="text/css">
+    <script src="/static/js/peredershka.js" defer></script>
+    <title>Document</title>
 </head>
-</head>
-
 <body>
-  {% include 'includes/nav2.html' %}
-  <main></main>
-  <footer class="footer">
-    <p>&copy; 2024 Передержка и поиск животных</p>
-  </footer>
-</body>
+{% include 'includes/nav2.html' %}
+<main>
 
+    <button class="create" id="create">Создать анкету на передержку</button>
+    {% for animal in animals %}
+        {% if loop.first %}
+            <section class="animal-cards">
+                <article class="animal-card">
+                    <img src="/{{ animal.img }}">
+                    <h3>{{ animal.name }}</h3>
+                    <p>{{ animal.description }}</p>
+                    <button>Передержка</button>
+                </article>
+                {% elif loop.last %}
+                <article class="animal-card">
+                    <img src="/{{ animal.img }}">
+                    <h3>{{ animal.name }}</h3>
+                    <p>{{ animal.description }}</p>
+                    <button>Передержка</button>
+                </article>
+            </section>
+        {% elif loop.index % 3 == 0 %}
+
+            <article class="animal-card">
+                <img src="/{{ animal.img }}">
+                <h3>{{ animal.name }}</h3>
+                <p>{{ animal.description }}</p>
+                <button>Передержка</button>
+            </article>
+            </section>
+            <section class="animal-cards">
+        {% else %}
+            <article class="animal-card">
+                <img src="/{{ animal.img }}">
+                <h3>{{ animal.name }}</h3>
+                <p>{{ animal.description }}</p>
+                <button>Передержка</button>
+            </article>
+        {% endif %}
+
+    {% endfor %}
+    {% if animals|length == 1 %}
+        </section>
+    {% endif %}
+</main>
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="close">&times;</span>
+        <div class="block-create">
+            <h2>Создать анкету на передержку</h2>
+            <form method="post" action="/create-form/" enctype="multipart/form-data">
+                {{ form.csrf_token }}
+                {{ form.owner(value=current_user.id) }}
+                <label for="address_test">Где:</label>
+                <input id="address_test"  name="address" type="text" />
+                <input id="is_lost" name="is_lost" value="" type="hidden">
+                <input id="redirect" name="redirect" value="/overexposure" type="hidden">
+                <input id="overexposure" name="overexposure" value="True" type="hidden">
+                {{ form.name.label }}{{ form.name(size=20) }}
+                {{ form.description.label }}{{ form.description(size=20) }}
+                {{ form.img.label }}{{ form.img }}
+                <label for="date">С какого числа</label>{{ form.date }}
+                <label for="at_time">На сколько</label>{{ form.at_time }}
+                <button type="submit">Создать</button>
+            </form>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <p>&copy; 2024 Передержка и поиск животных</p>
+</footer>
+</body>
 </html>

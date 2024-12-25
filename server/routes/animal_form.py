@@ -40,6 +40,7 @@ def new_animal():
             'address': form.address.data,
             'coords': get_coords_by_address(form.address.data),
             'is_approved': appr,
+            'overexposure': form.overexposure.data,
         }
         p.save(uri)
         ANIMAL.create(**data)
@@ -62,7 +63,7 @@ def get_lost():
     ]
 
 
-def found():
+def found_animal():
     return [
         {
             'id': i.id,
