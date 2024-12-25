@@ -3,9 +3,9 @@ import datetime
 from flask import request, redirect, render_template
 from flask_login import login_user, logout_user, login_required
 
-from server.models.user import authenticate
-from server.repo.user import USER
-from server.repo.volunteer_form import VOLUNTEER
+from models.user import authenticate
+from repo.user import USER
+from repo.volunteer_form import VOLUNTEER
 
 
 def login():
@@ -40,7 +40,9 @@ def register():
     if user:
         login_user(user)
         if user.is_vol:
-            VOLUNTEER.create(u.name, '', u.email, datetime.date.today(), '', u.username)
+            VOLUNTEER.create(
+                u.name, '', u.email, datetime.date.today(), '', u.username
+            )
             return redirect('/vol/')
         return redirect('/me')
     return redirect('/')

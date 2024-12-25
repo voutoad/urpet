@@ -1,7 +1,7 @@
 import datetime
 
 from sqlalchemy.orm import Mapped, mapped_column, backref
-from server.models.database import db
+from models.database import db
 
 
 class Animal(db.Model):

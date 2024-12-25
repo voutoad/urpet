@@ -1,8 +1,8 @@
 from datetime import date
 
-from server.repo.repo import BaseRepo
-from server.models import db
-from server.models.volunteer_form import VolunteerForm
+from repo.repo import BaseRepo
+from models import db
+from models.volunteer_form import VolunteerForm
 
 
 class VolunteerFormRepo(BaseRepo):
@@ -38,7 +38,11 @@ class VolunteerFormRepo(BaseRepo):
         return self.session.query(VolunteerForm).filter_by(login=login).first()
 
     def not_approved(self):
-        return self.session.query(VolunteerForm).filter_by(is_approved=False).all()
+        return (
+            self.session.query(VolunteerForm)
+            .filter_by(is_approved=False)
+            .all()
+        )
 
     def get_by_email(self, email: str) -> VolunteerForm | None:
         return self.session.query(VolunteerForm).filter_by(email=email).first()
@@ -48,4 +52,6 @@ class VolunteerFormRepo(BaseRepo):
         self.session.delete(vol)
         self.session.commit()
         return n
+
+
 VOLUNTEER = VolunteerFormRepo(db.session)

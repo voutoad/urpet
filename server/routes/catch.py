@@ -1,6 +1,6 @@
 from flask import redirect, render_template
 from flask_login import current_user
-from server.repo import ANIMAL
+from repo import ANIMAL
 
 
 def is_catch():

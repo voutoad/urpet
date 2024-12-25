@@ -2,7 +2,7 @@ import datetime
 
 from sqlalchemy.orm import Mapped, mapped_column
 
-from server.models.database import db
+from models.database import db
 
 
 class VolunteerForm(db.Model):

@@ -1,3 +1,3 @@
-from server.repo.animal_form import *
-from server.repo.user import *
-from server.repo.volunteer_form import *
+from repo.animal_form import *
+from repo.user import *
+from repo.volunteer_form import *

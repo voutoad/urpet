@@ -1,14 +1,12 @@
-import os
-
 import requests
-from flask import request, redirect, render_template
+from flask import redirect, render_template
 from flask_login import current_user
 from werkzeug.utils import secure_filename
 
-from server.forms import CreateAnimalForm
-from server.models import Animal, User
-from server.repo import ANIMAL, USER
-from server.config import GEOCODE, BASE_DIR
+from forms import CreateAnimalForm
+from models import User
+from repo import ANIMAL, USER
+from config import GEOCODE, BASE_DIR
 
 
 def get_coords_by_address(address: str) -> str:
@@ -16,12 +14,18 @@ def get_coords_by_address(address: str) -> str:
         f'https://geocode-maps.yandex.ru/1.x/?apikey={GEOCODE}&geocode={address}&format=json'
     ).json()
     print(resp)
-    return resp['response']['GeoObjectCollection']['featureMember'][0]['GeoObject']['Point']['pos']
+    return resp['response']['GeoObjectCollection']['featureMember'][0][
+        'GeoObject'
+    ]['Point']['pos']
 
 
 def new_animal():
     appr = False
-    if current_user and isinstance(current_user, User) and current_user.is_authenticated:
+    if (
+        current_user
+        and isinstance(current_user, User)
+        and current_user.is_authenticated
+    ):
         appr = True
     form = CreateAnimalForm()
     if form.validate_on_submit():

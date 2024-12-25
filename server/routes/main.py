@@ -3,9 +3,9 @@ import os
 from flask import render_template, redirect
 from werkzeug.utils import secure_filename
 
-from server.forms import CreateAnimalForm, CreateVolunteerForm
-from server.repo import ANIMAL, VOLUNTEER
-from server.models import VolunteerForm
+from forms import CreateAnimalForm, CreateVolunteerForm
+from repo import ANIMAL, VOLUNTEER
+from models import VolunteerForm
 
 
 # route => /

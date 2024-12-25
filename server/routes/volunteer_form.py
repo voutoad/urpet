@@ -2,8 +2,8 @@ from flask import render_template, redirect, request
 from flask_login import login_required
 from werkzeug.utils import secure_filename
 
-from server.repo import VOLUNTEER
-from server.config import BASE_DIR
+from repo import VOLUNTEER
+from config import BASE_DIR
 
 
 @login_required

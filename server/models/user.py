@@ -1,4 +1,4 @@
-from server.models.database import db
+from models.database import db
 from sqlalchemy.orm import Mapped, mapped_column
 from werkzeug.security import check_password_hash
 

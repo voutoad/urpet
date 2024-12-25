@@ -1,14 +1,16 @@
 import smtplib
 from email.mime.text import MIMEText
 
-from flask import render_template, request
-from server.forms import CreateAnimalForm
-from server.repo import ANIMAL, VOLUNTEER
-from server.config import SMTP_PASSWORD, SMTP_URL
+from flask import render_template, request, redirect
+from flask_login import current_user
+from forms import CreateAnimalForm
+from repo import ANIMAL, VOLUNTEER
+from config import SMTP_PASSWORD, SMTP_URL
 
 
 def check_admin():
-    ...
+    if not current_user.is_super_user:
+        return redirect('/')
 
 
 def add():
@@ -53,17 +55,18 @@ def vol_requests():
 def send_email():
     email = request.args.get('email')
     server = smtplib.SMTP_SSL(SMTP_URL)
-    server.login('urp3t', SMTP_PASSWORD)
+    login('urp3t', SMTP_PASSWORD)
     msg = MIMEText('Ваша заявка одобрена!', 'plain', 'utf-8')
     msg['subject'] = email
     msg['from'] = 'urp3t@yandex.ru'
     msg['to'] = email
-    server.send_message(msg)
-    server.quit()
+    send_message(msg)
+    quit()
     v = VOLUNTEER.get_by_email(email)
     v.is_approved = True
     VOLUNTEER.save(v)
     return {'result': 'success'}
+
 
 def delete_vol(vol_id: int):
     vol = VOLUNTEER.get_by_id(vol_id)
