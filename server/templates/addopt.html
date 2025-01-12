@@ -1,42 +1,43 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link href="/static/css/feed.css" rel="stylesheet" type="text/css" />
-        <title>Document</title>
-    </head>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="/static/css/feed.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/mobilenav2.css" rel="stylesheet" type="text/css"/>
+    <title>Document</title>
+</head>
 
-    <body>
-        {% include 'includes/nav2.html' %}
-        <main id="{{ current_user.id }}">
-            {% if animals %} {% for ans in animals %}
-            <section class="animal-cards">
-                {% for an in ans %}
+<body>
+{% include 'includes/nav2.html' %}
+<main id="{{ current_user.id }}">
+    {% if animals %} {% for ans in animals %}
+        <section class="animal-cards">
+            {% for an in ans %}
                 <article class="animal-card">
-                    <img src="/{{ an.img }}" />
+                    <img src="/{{ an.img }}"/>
                     <h3>{{ an.name }}</h3>
-                    <p>{{an.description}}</p>
+                    <p>{{ an.description }}</p>
                     {% if an.id not in cart %}
-                    <button id="{{ an.id }}" onclick="addToCart(this)">
-                        Добавить в корзину
-                    </button>
+                        <button id="{{ an.id }}" onclick="addToCart(this)">
+                            Добавить в корзину
+                        </button>
                     {% else %}
-                    <button id="{{ an.id }}">Уже в корзине</button>
+                        <button id="{{ an.id }}">Уже в корзине</button>
                     {% endif %}
                 </article>
-                {% endfor %}
-            </section>
-            {% endfor %} {% endif %}
-        </main>
-        <footer class="footer">
-            <p>&copy; 2024 Передержка и поиск животных</p>
-        </footer>
-        <script>
-            function addToCart(button) {
-              fetch("http://194.87.140.79:8080/add-to-cart/" + {{ current_user.id }} + "/" + button.id + "/");
-            button.innerText = "Уже добавлено в корзину";
-              }
-        </script>
-    </body>
+            {% endfor %}
+        </section>
+    {% endfor %} {% endif %}
+</main>
+<footer class="footer">
+    <p>&copy; 2024 Передержка и поиск животных</p>
+</footer>
+<script>
+    function addToCart(button) {
+        fetch("http://194.87.140.79:8080/add-to-cart/" + {{ current_user.id }} + "/" + button.id + "/");
+        button.innerText = "Уже добавлено в корзину";
+    }
+</script>
+</body>
 </html>

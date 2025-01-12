@@ -1,5 +1,4 @@
 import datetime
-from typing import Type
 
 from models.animal_form import Animal
 from models.user import User
@@ -43,12 +42,12 @@ class AnimalRepo(BaseRepo):
     def get_by_id(self, animal_id: int) -> Animal | None:
         return self.session.query(Animal).filter_by(id=animal_id).first()
 
-    def get_py_approving(self, is_approved: bool) -> list[Type[Animal]]:
+    def get_py_approving(self, is_approved: bool) -> list[Animal]:
         return (
             self.session.query(Animal).filter_by(is_approved=is_approved).all()
         )
 
-    def get_by_lost(self, has_lost: bool) -> list[Type[Animal]]:
+    def get_by_lost(self, has_lost: bool) -> list[Animal]:
         return (
             self.session.query(Animal)
             .filter_by(has_lost=has_lost, overexposure=False)
@@ -105,4 +104,4 @@ class AnimalRepo(BaseRepo):
         )
 
 
-ANIMAL = AnimalRepo(db.session)
+ANIMAL = AnimalRepo(db.session)  # type: ignore
