@@ -22,13 +22,16 @@ def get_coords_by_address(address: str) -> str:
 def new_animal():
     appr = False
     if (
-        current_user
-        and isinstance(current_user, User)
-        and current_user.is_authenticated
+            current_user
+            and isinstance(current_user, User)
+            and current_user.is_authenticated
+            and current_user.is_super_user
     ):
         appr = True
     form = CreateAnimalForm()
+    print(form.at_time.data)
     if form.validate_on_submit():
+        print(form.at_time.data)
         p = form.img.data
         filename = secure_filename(p.filename)
         uri = BASE_DIR / 'static' / 'images' / filename
@@ -39,12 +42,13 @@ def new_animal():
             'user': USER.get_by_id(form.owner.data),
             'img': str(uri).split('server/')[-1],
             'date': form.date.data,
-            'at_time': str(form.at_time.data),
+            'at_time': form.at_time.data,
             'has_lost': form.is_lost.data,
             'address': form.address.data,
             'coords': get_coords_by_address(form.address.data),
             'is_approved': appr,
             'overexposure': form.overexposure.data,
+            'for_time': form.for_time.data,
         }
         p.save(uri)
         ANIMAL.create(**data)

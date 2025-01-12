@@ -16,11 +16,12 @@ class AnimalRepo(BaseRepo):
         img: str,
         has_lost: bool,
         date: datetime.date,
-        at_time: str,
+        at_time: datetime.time,
         address: str,
         coords: str,
         is_approved: bool,
         overexposure: bool,
+        for_time: str
     ) -> Animal:
         animal = Animal()
         animal.name = name
@@ -31,6 +32,7 @@ class AnimalRepo(BaseRepo):
         animal.has_lost = has_lost
         animal.date = date
         animal.at_time = at_time
+        animal.for_time = for_time
         animal.address = address
         animal.coords = coords
         animal.is_approved = is_approved

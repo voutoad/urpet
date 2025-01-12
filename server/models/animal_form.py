@@ -22,4 +22,6 @@ class Animal(db.Model):
         default=datetime.datetime.now().date
     )
     overexposure: Mapped[bool] = mapped_column(default=False)
-    at_time: Mapped[str]
+    at_time: Mapped[datetime.time] = mapped_column(default=None)
+    for_time: Mapped[str] = mapped_column(default=None)
+

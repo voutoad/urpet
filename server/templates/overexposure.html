@@ -67,11 +67,12 @@
                 <input id="is_lost" name="is_lost" value="" type="hidden">
                 <input id="redirect" name="redirect" value="/overexposure" type="hidden">
                 <input id="overexposure" name="overexposure" value="True" type="hidden">
+                <input id="at_time" name="at_time" value="03:21" type="time" style="display: none" />
                 {{ form.name.label }}{{ form.name(size=20) }}
                 {{ form.description.label }}{{ form.description(size=20) }}
                 {{ form.img.label }}{{ form.img }}
                 <label for="date">С какого числа</label>{{ form.date }}
-                <label for="at_time">На сколько</label>{{ form.at_time }}
+                {{ form.for_time.label }}{{ form.for_time }}
                 <button type="submit">Создать</button>
             </form>
         </div>
