@@ -77,6 +77,8 @@ def delete_animal(us_id, an_id):
     user = USER.get_by_id(us_id)
     if str(an_id) in user.cart.split(', '):
         user.cart = user.cart.split(', ').remove(str(an_id))
+        if user.cart is None:
+            user.cart = ''
         USER.save(user)
         return {'result': 'success'}
     return {'result': 'fail'}
