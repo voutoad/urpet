@@ -65,7 +65,7 @@ def send_email():
     msg['from'] = 'urp3t@yandex.ru'
     msg['to'] = email
     send_message(msg)
-    quit()
+    # quit()
     v = VOLUNTEER.get_by_email(email)
     v.is_approved = True
     VOLUNTEER.save(v)
