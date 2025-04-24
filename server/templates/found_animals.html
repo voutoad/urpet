@@ -43,7 +43,7 @@
         function deleteAnimal(button) {
             const animalDiv = button.parentElement;
             console.log(animalDiv.id)
-            fetch("http://127.0.0.1:8000/admin/delete-form/" + animalDiv.id + "/");
+            fetch("http://193.160.208.219:8000/admin/delete-form/" + animalDiv.id + "/");
             animalDiv.remove();
             alert("Запись о животном удалена.");
         }

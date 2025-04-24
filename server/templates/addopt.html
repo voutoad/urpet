@@ -35,7 +35,7 @@
 </footer>
 <script>
     function addToCart(button) {
-        fetch("http://127.0.0.1:5000/add-to-cart/" + {{ current_user.id }} + "/" + button.id + "/");
+        fetch("http://193.160.208.219:8000/add-to-cart/" + {{ current_user.id }} + "/" + button.id + "/");
         button.innerText = "Уже добавлено в корзину";
     }
 </script>

@@ -67,7 +67,7 @@ async function init() {
         notification.querySelector('.remove-button').addEventListener('click', () => {
             myMap.geoObjects.remove(placemark); // Удалить маркер
             notification.remove(); // Удалить уведомление
-            fetch('http://194.87.140.79:8080/admin/delete-form/' + animal.id + '/');
+            fetch('http://193.160.208.219:8000/admin/delete-form/' + animal.id + '/');
         });
     });
 }
