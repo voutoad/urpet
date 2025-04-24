@@ -99,7 +99,7 @@
 </footer>
 <script>
     function deleteFromCart(button) {
-        fetch("http://194.87.140.79:8080/delete-from-cart/" + {{ current_user.id }} + "/" + button.id + '/');
+        fetch("http://127.0.0.1:5000/delete-from-cart/" + {{ current_user.id }} + "/" + button.id + '/');
         button.parentNode.parentNode.removeChild(button.parentNode);
     }
 </script>

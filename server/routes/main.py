@@ -6,6 +6,7 @@ from werkzeug.utils import secure_filename
 from forms import CreateAnimalForm, CreateVolunteerForm
 from repo import ANIMAL, VOLUNTEER
 from models import VolunteerForm
+from config import BASE_DIR
 
 
 # route -> /
@@ -26,15 +27,14 @@ def about():
     if f.validate_on_submit():
         p = f.img.data
         filename = secure_filename(p.filename)
-        uri = os.path.join(
-            app.instance_path.strip('instance') + 'static', 'images', filename
-        )
+        uri = BASE_DIR / 'static' / 'images' / filename
         data = {
             'name': f.name.data,
             'email': f.email.data,
             'description': f.description.data,
             'date_of_birth': f.date_of_birth.data,
-            'img': uri.split('server/')[-1],
+            'img': str(uri).split('server/')[-1],
+            'login': f.email.data,
         }
         v = VolunteerForm(**data)
         p.save(uri)

@@ -63,7 +63,7 @@
                 {{ form.csrf_token }}
                 {{ form.owner(value=current_user.id) }}
                 <label for="address_test">Где:</label>
-                <input id="address_test"  name="address" type="text" />
+                <input id="address_test"  name="address" type="text" required/>
                 <input id="is_lost" name="is_lost" value="" type="hidden">
                 <input id="redirect" name="redirect" value="/overexposure" type="hidden">
                 <input id="overexposure" name="overexposure" value="True" type="hidden">

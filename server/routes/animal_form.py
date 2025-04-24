@@ -44,7 +44,7 @@ def new_animal():
             'at_time': form.at_time.data,
             'has_lost': form.is_lost.data,
             'address': form.address.data,
-            'coords': '80.808, 840', # get_coords_by_address(form.address.data)
+            'coords': get_coords_by_address(form.address.data), # 
             'is_approved': appr,
             'overexposure': form.overexposure.data,
             'for_time': form.for_time.data,
