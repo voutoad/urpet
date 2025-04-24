@@ -25,7 +25,7 @@
                 <input id="address_test" plaseholder="Введите адрес места, где последний раз видели своего пушистика"
               required
               name="address" type="text" />
-                <button id="address_on_map">Адрес на карту</button>
+                <!-- <button id="address_on_map">Адрес на карту</button> -->
                 {{ form.csrf_token }}
                 {{ form.owner(value=current_user.id) }}
                 <input id="is_lost" name="is_lost" value="True" type="hidden">
