@@ -1,4 +1,4 @@
-body{
+body {
     background-color: #e6f2ff;
     padding: 0;
     margin: 0;
@@ -6,16 +6,18 @@ body{
     font-family: 'Arial', sans-serif;
     color: #333;
 }
-.top-barfixed{
+
+.top-barfixed {
     background-color: #81b266;
     height: 50px;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
+
 }
-.top-barfixed a{
+
+.top-barfixed a {
     height: 35px;
     width: 120px;
     margin-left: 15px;
@@ -29,10 +31,12 @@ body{
     justify-content: center;
     margin-right: 15px;
 }
-.top-barfixed a:hover{
+
+.top-barfixed a:hover {
     background-color: #6c914c;
 }
-.imgofaccount{
+
+.imgofaccount {
     height: 330px;
     width: 330px;
     margin-top: 10px;
@@ -43,14 +47,17 @@ body{
     border-radius: 5px;
     margin-left: 50px;
     margin-top: 10px;
-    
+
 }
-.tit{
+
+.tit {
     margin-left: 15px;
 }
-.tita{
+
+.tita {
     margin-left: 60px;
 }
+
 #upload-container {
     display: flex;
     justify-content: center;
@@ -66,25 +73,27 @@ body{
     border-radius: 5px;
     margin-left: 40px;
 }
- 
+
 #upload-container img {
     width: 40%;
     margin-bottom: 20px;
     user-select: none;
 }
+
 #upload-container label {
     font-weight: bold;
 }
- 
+
 #upload-container label:hover {
     cursor: pointer;
     text-decoration: underline;
 }
+
 #upload-container div {
     position: relative;
     z-index: 10;
 }
- 
+
 #upload-container input[type=file] {
     width: 0.1px;
     height: 0.1px;
@@ -92,36 +101,43 @@ body{
     position: absolute;
     z-index: -10;
 }
+
 :focus {
     outline: -webkit-focus-ring-color auto 5px;
 }
+
 #upload-container input[type=file]:focus + label {
     outline: -webkit-focus-ring-color auto 5px;
     outline: 1px solid #0078d7;
 }
+
 :focus {
     outline: 1px solid #0078d7;
     outline: 1px solid #212121;
 }
+
 #upload-container label.focus {
     outline: 1px solid #0078d7;
     outline: -webkit-focus-ring-color auto 5px;
 }
+
 #upload-container.dragover {
     background-color: #fafafa;
     outline-offset: -17px;
 }
-.personality{
+
+.personality {
     display: flex;
     justify-content: center;
     flex-direction: column;
     margin-left: 30px;
-    width: 380px;
+    width: 30vw;
     background-color: #f1f7fe;
     border-radius: 5px;
     border: 1px solid #ccc;
     margin-bottom: 10px;
 }
+
 input[type="name"],
 input[type="sername"],
 input[type="email"],
@@ -131,7 +147,8 @@ input[type="password"] {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
-.data{
+
+.data {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -139,7 +156,8 @@ input[type="password"] {
     height: 250px;
     margin-left: 15px;
 }
-.save{
+
+.save {
     width: 100px;
     height: 40px;
     border: 1px solid #ccc;
@@ -148,18 +166,21 @@ input[type="password"] {
     background-color: #81b266;
     color: white;
 }
-.save:hover{
+
+.save:hover {
     background-color: #6c914c;
     color: white;
 }
-.infa{
+
+.infa {
     height: 710px;
     width: 450px;
     background-color: #f6faff;
     display: flex;
     flex-direction: column;
 }
-.box{
+
+.box {
     height: 50px;
     width: 500px;
     display: flex;
@@ -169,14 +190,17 @@ input[type="password"] {
     box-shadow: 0 0 1px #f3ffeb;
     color: white;
 }
-.bigbox{
+
+.bigbox {
     width: 500px;
 }
-.about_all{
+
+.about_all {
     display: flex;
     height: 700px;
 }
-.chats{
+
+.chats {
     height: 50px;
     width: 270px;
     display: flex;
@@ -186,7 +210,8 @@ input[type="password"] {
     box-shadow: 0 0 1px #f3ffeb;
     color: white;
 }
-.chat{
+
+.chat {
     width: 270px;
     display: flex;
     justify-content: center;
@@ -195,106 +220,121 @@ input[type="password"] {
     flex-direction: column;
     margin-bottom: 610px;
 }
-.chatiki{
+
+.chatiki {
     display: flex;
     align-items: center;
     flex-direction: column;
-    
+
 }
-.makers{
+
+.makers {
     width: 260px;
     height: 40px;
     text-decoration: none;
     display: flex;
     align-items: center;
 }
-.pet_cards{
+
+.pet_cards {
     margin-top: 10px;
 }
-.byca{
+
+.byca {
     width: 230px;
     height: 300px;
     background-color: white;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     display: inline-block;
     vertical-align: top;
     margin-left: 15px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
- 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
 }
-.byca img{
+
+.byca img {
     width: 200px;
     height: 200px;
     border-radius: 10px;
     margin-left: 15px;
     margin-top: 5px;
 }
-.byca h3{
+
+.byca h3 {
     display: flex;
     justify-content: center;
 }
-.byca button{
+
+.byca button {
     margin-left: 90px;
     border-radius: 5px;
-    cursor: pointer; 
+    cursor: pointer;
     background-color: #b9daa0;
     color: white;
     border: none;
-    
+
 }
-.byca button:hover{
+
+.byca button:hover {
     background-color: #a3df76;
     color: white;
     border: none;
-    border-radius: 5px; 
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.myca{
+
+.myca {
     width: 230px;
     height: 300px;
     background-color: white;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     display: inline-block;
     vertical-align: top;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.myca img{
+
+.myca img {
     width: 200px;
     height: 200px;
     border-radius: 10px;
     margin-left: 15px;
     margin-top: 5px;
-    
+
 }
-.myca h3{
+
+.myca h3 {
     display: flex;
     justify-content: center;
 }
-.myca button{
+
+.myca button {
     margin-left: 90px;
     border-radius: 5px;
-    cursor: pointer; 
+    cursor: pointer;
     background-color: #b9daa0;
     color: white;
     border: none;
 }
-.myca button:hover{
+
+.myca button:hover {
     background-color: #a3df76;
     color: white;
     border: none;
-    border-radius: 5px; 
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.byca a, .myca a{
+
+.byca a, .myca a {
     text-decoration: none;
     color: white;
 }
+
 .footer {
     background-color: #81b266;
     color: white;

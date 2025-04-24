@@ -184,7 +184,7 @@ input[type="password"] {
 
 .box {
     height: 50px;
-    width: 500px;
+    width: 80vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -243,7 +243,7 @@ input[type="password"] {
 
 .byca {
     width: 230px;
-    height: 300px;
+    height: 325px;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -349,6 +349,8 @@ input[type="password"] {
     background-color: #e74c3c;
     color: white;
     border: none;
+    margin-left: 45px;
+    margin-top: 5px;
     border-radius: 5px;
     padding: 5px 10px;
     cursor: pointer;
@@ -367,6 +369,7 @@ input[type="password"] {
     .infa {
         width: 100%;
     }
+
     .bigbox {
         margin-top: 10px;
         display: flex;

@@ -22,6 +22,8 @@ def add():
 
 def change(form_id: int):
     form = ANIMAL.get_by_id(form_id)
+    if form is None:
+        return {'result': 'not found'}
     form.is_approved = True
     ANIMAL.save(form)
     return {'answer': 'checked'}
@@ -29,6 +31,8 @@ def change(form_id: int):
 
 def delete(form_id: int):
     form = ANIMAL.get_by_id(form_id)
+    if form is None:
+        return {'result': 'not found'}
     ANIMAL.delete(form)
     return {'answer': 'checked'}
 

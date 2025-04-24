@@ -3,7 +3,9 @@ from flask_wtf.file import FileRequired
 from wtforms import StringField, HiddenField, BooleanField, DateField, FileField, Field, TimeField
 from wtforms.validators import DataRequired
 
+# from dataclasses import dataclass
 
+# @dataclass
 class CreateAnimalForm(FlaskForm):
     name = StringField('Кличка', validators=[DataRequired()])
     description = StringField('Опишите', validators=[DataRequired()])

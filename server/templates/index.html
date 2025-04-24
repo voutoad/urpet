@@ -1,88 +1,90 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Админская панель</title>
-    <link rel="stylesheet" href="/static/css/styles.css" />
-    <link rel="stylesheet" href="/static/css/style.css" />
-  </head>
-  <body>
-    <div class="header">
-      <h1>Админская панель</h1>
-      <div class="avatar" id="avatar" title="Личный кабинет">
-        <img src="avatar.png" alt="Аватар" />
-      </div>
+    <link rel="stylesheet" href="/static/css/styles.css"/>
+    <link rel="stylesheet" href="/static/css/style.css"/>
+</head>
+<body>
+<div class="header">
+    <h1>Админская панель</h1>
+    <div class="avatar" id="avatar" title="Личный кабинет">
+        <img src="avatar.png" alt="Аватар"/>
     </div>
+</div>
 
-    {% include 'includes/a_nav.html' %}
-    <main>
-      <div class="content">
+{% include 'includes/a_nav.html' %}
+<main>
+    <div class="content">
         <h2>Карточки животных</h2>
         <div class="animal-cards" id="animalCards">
-          {% if animals %}{% for animal in animals %}
-          <article class="animal-card" id="{{ animal.id }}">
-            <img src="/{{ animal.img }}" alt="Мурзик" />
-            <h3>{{animal.name}}</h3>
-            <p>{{animal.description}}</p>
-            <button
-              id="{{ animal.id }}"
-              onclick="deleteForm(this)"
-              style="background-color: #e74c3c"
-            >
-              Удалить
-            </button>
-          </article>
-          {% endfor %} {% endif %}
+            {% if animals %}{% for animal in animals %}
+                <article class="animal-card" id="{{ animal.id }}">
+                    <img src="/{{ animal.img }}" alt="Мурзик"/>
+                    <h3>{{ animal.name }}</h3>
+                    <p>{{ animal.description }}</p>
+                    <button
+                            id="{{ animal.id }}"
+                            onclick="deleteForm(this)"
+                            style="background-color: #e74c3c"
+                    >
+                        Удалить
+                    </button>
+                </article>
+            {% endfor %} {% endif %}
         </div>
-      </div>
-
-      <div class="modal" id="addAnimalModal">
-        <div class="modal-content">
-          <span class="close" id="closeModal">&times;</span>
-          <h2>Добавить животное</h2>
-          <form
-            id="addAnimalForm"
-            action="/create-form/"
-            method="post"
-            enctype="multipart/form-data"
-          >
-            {{ form.csrf_token }}
-            <label for="animalName">Имя животного:</label>
-            <input type="text" name="name" required />
-            <label for="animalImage">Ссылка на изображение:</label>
-            <input type="file" id="animalImage" name="img" required />
-            <label for="animalAppearance">Описание</label>
-            <textarea
-              id="animalAppearance"
-              name="description"
-              required
-            ></textarea>
-            <label for="animalTime">Во сколько</label>
-            <input type="time" name="at_time" required />
-            <label for="animalAddress">Какого числа:</label>
-            <input type="date" name="date" required />
-            <label for="animalAddress">Адрес:</label>
-            <input type="text" name="address" required />
-            <input name="is_lost" value="True" type="hidden" />
-            <input name="owner" value="{{ current_user.id }}" type="hidden" />
-            <input name="redirect" value="/admin/add" type="hidden" />
-            <button type="submit">Добавить</button>
-          </form>
-        </div>
-      </div>
-    </main>
-
-    <div class="footer">
-      <p>&copy; 2023 Админская панель</p>
     </div>
 
-    <script src="/static/js/script.js"></script>
-    <script>
-      function deleteForm(button) {
-        fetch("http://194.87.140.79:8080/admin/delete-form/" + button.id);
+    <div class="modal" id="addAnimalModal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Добавить животное</h2>
+            <form
+                    id="addAnimalForm"
+                    action="/create-form/"
+                    method="post"
+                    enctype="multipart/form-data"
+            >
+                {{ form.csrf_token }}
+                <label for="name">Имя животного:</label>
+                <input type="text" id="name" name="name" required/>
+                <label for="animalImage">Ссылка на изображение:</label>
+                <input type="file" id="animalImage" name="img" required/>
+                <label for="description">Описание</label>
+                <textarea
+                        id="description"
+                        name="description"
+                        required
+                ></textarea>
+                <label for="at_time">Во сколько</label>
+                <input type="time" id="at_time" name="at_time" required/>
+                <label for="date">Какого числа:</label>
+                <input type="date" id="date" name="date" required/>
+                <label for="address">Адрес:</label>
+                <input type="text" id="address" name="address" required/>
+                <input name="is_lost" value="True" type="hidden"/>
+                <input name="owner" value="{{ current_user.id }}" type="hidden"/>
+                <input name="redirect" value="/admin/add" type="hidden"/>
+                <input name="overexposure" value="" type="hidden">
+                <input type="hidden" id="for_time" name="for_time" value="0">
+                <button type="submit">Добавить</button>
+            </form>
+        </div>
+    </div>
+</main>
+
+<div class="footer">
+    <p>&copy; 2023 Админская панель</p>
+</div>
+
+<script src="/static/js/script.js"></script>
+<script>
+    function deleteForm(button) {
+        fetch("http://127.0.0.1:5000/admin/delete-form/" + button.id);
         button.parentNode.parentNode.removeChild(button.parentNode);
-      }
-    </script>
-  </body>
+    }
+</script>
+</body>
 </html>
